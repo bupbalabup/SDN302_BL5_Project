@@ -1,0 +1,68 @@
+.tree-select-custom-container {
+  width: 100%;
+
+  .ant-select {
+    width: 100%;
+
+    .ant-select-selector {
+      border-radius: 8px !important;
+      padding: 8px 12px !important;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      border: 1px solid #d9d9d9;
+      transition: all 0.25s ease;
+
+      &:hover {
+        border-color: #40a9ff;
+        box-shadow: 0 0 4px rgba(64, 169, 255, 0.3);
+      }
+    }
+
+    // focus state
+    &.ant-select-focused .ant-select-selector {
+      border-color: #1677ff !important;
+      box-shadow: 0 0 6px rgba(22, 119, 255, 0.35);
+    }
+
+    // placeholder
+    .ant-select-selection-placeholder {
+      color: rgba(0, 0, 0, 0.45);
+      font-size: 14px;
+    }
+
+    // selected text
+    .ant-select-selection-item {
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+
+  // dropdown của tree-select
+  .ant-select-dropdown {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 6px;
+
+    .ant-select-tree {
+      .ant-select-tree-treenode {
+        padding: 6px 8px;
+        border-radius: 6px;
+        transition: background 0.2s;
+
+        &:hover {
+          background: #f5faff;
+        }
+
+        // node đang chọn
+        &.ant-select-tree-treenode-selected {
+          background: #e6f4ff !important;
+          .ant-select-tree-node-content-wrapper {
+            color: #1677ff;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+}

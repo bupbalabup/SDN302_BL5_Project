@@ -1,0 +1,932 @@
+{
+	"info": {
+		"_postman_id": "2ae0b5c0-6e65-4343-933e-6cee024077e9",
+		"name": "SDN302",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48300184",
+		"_collection_link": "https://vinhhvhe180184-970657.postman.co/workspace/VinhHa's-Workspace~4dd1131a-550a-400c-8c4e-ff80aff5ee70/collection/48300184-2ae0b5c0-6e65-4343-933e-6cee024077e9?action=share&source=collection_link&creator=48300184"
+	},
+	"item": [
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "getAllCategories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9999/api/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "getAllProducts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"vinghv\",\r\n  \"password\": \"A123456a\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:9999/api/products",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProductsByCategoryId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9999/api/products/category/68f6587dce81f243332a473c",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"products",
+								"category",
+								"68f6587dce81f243332a473c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProductById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9999/api/products/68f65ef8ce81f243332a474e",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"products",
+								"68f65ef8ce81f243332a474e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": []
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"Hà\",\r\n  \"lastName\": \"Văn Vinh\",\r\n  \"email\": \"vinhhv28@gmail.com\",\r\n  \"password\": \"1234678\",\r\n  \"phoneNumber\": \"0981228204\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9999/api/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resent-opt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"vinh@example.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9999/api/auth/resend-otp",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"auth",
+								"resend-otp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify-email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"vinhhv28@gmail.com\",\r\n  \"otp\": \"426928\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9999/api/auth/verify-email",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"auth",
+								"verify-email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"vinhhv28@gmail.com\",\r\n  \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9999/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh-token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6...\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9999/api/auth/refresh-token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6...\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9999/api/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LoginGG",
+			"item": []
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "getUserNotifications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDZlODdjMzNmOTkwNjNkMzI5NWQ2YSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzYyMDYwOTgyLCJleHAiOjE3NjI2NjU3ODJ9.SV63qATRqa-ejqKKNBPut_-Zy6zDDpFBr-ls_VoEakg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9999/api/notifications/my",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"notifications",
+								"my"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "markAsRead",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTFhYmE3YjEwMjI3ZDE0NDk3MTZlOCIsImVtYWlsIjoidmluaGh2MjhAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NjI3NjU4MTUsImV4cCI6MTc2Mjg1MjIxNX0.0DpUNTXRaKMVjXHfP6FNi2j4kfJLbxAJvv-UmaJFzeU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9999/api/notifications/68f65ef8ce81f243332a474e/read",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"notifications",
+								"68f65ef8ce81f243332a474e",
+								"read"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Carts",
+			"item": [
+				{
+					"name": "getCart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTJlNGI2Y2FiNzIxOWE2MzZmNDU2YyIsImVtYWlsIjoidmluaGh2MjhAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NjI4NzM5NDEsImV4cCI6MTc2Mjk2MDM0MX0.MT1Un-_2f1V9rCliHAkwLeCBHPcXQ2AKo7oL20k3qDc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9999/api/cart/by-seller",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"cart",
+								"by-seller"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addToCart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDZlODdjMzNmOTkwNjNkMzI5NWQ2YSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzYyMDYwOTgyLCJleHAiOjE3NjI2NjU3ODJ9.SV63qATRqa-ejqKKNBPut_-Zy6zDDpFBr-ls_VoEakg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"productId\": \"66d4d91fbf3a59d9b72c1c22\",\r\n  \"quantity\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9999/api/cart/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"cart",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDZlODdjMzNmOTkwNjNkMzI5NWQ2YSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzYyMDYwOTgyLCJleHAiOjE3NjI2NjU3ODJ9.SV63qATRqa-ejqKKNBPut_-Zy6zDDpFBr-ls_VoEakg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"productId\": \"66d4d91fbf3a59d9b72c1c22\",\r\n  \"quantity\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9999/api/cart/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"cart",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeFromCart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDZlODdjMzNmOTkwNjNkMzI5NWQ2YSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzYyMDYwOTgyLCJleHAiOjE3NjI2NjU3ODJ9.SV63qATRqa-ejqKKNBPut_-Zy6zDDpFBr-ls_VoEakg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9999/api/cart/remove/66d4d91fbf3a59d9b72c1c22",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"cart",
+								"remove",
+								"66d4d91fbf3a59d9b72c1c22"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "clear",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDZlODdjMzNmOTkwNjNkMzI5NWQ2YSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzYyMDYwOTgyLCJleHAiOjE3NjI2NjU3ODJ9.SV63qATRqa-ejqKKNBPut_-Zy6zDDpFBr-ls_VoEakg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9999/api/cart/clear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"cart",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Coupons",
+			"item": [
+				{
+					"name": "getAllCoupons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9999/api/coupons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"coupons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCouponById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9999/api/coupons/6912c091fd206a4dbc790131",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"coupons",
+								"6912c091fd206a4dbc790131"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createCoupon",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"code\": \"DISCOUNTChovaydo2\",\r\n  \"discountPercent\": 50,\r\n  \"startDate\": \"2025-11-01T00:00:00.000Z\",\r\n  \"endDate\": \"2025-12-31T23:59:59.999Z\",\r\n  \"status\": \"active\",\r\n  \"type\": \"product\",\r\n  \"productIds\": [],\r\n  \"maxUsage\": 1000,\r\n  \"maxUsagePerUser\": 5,\r\n  \"minOrderValue\": 0,\r\n  \"maxDiscountAmount\": 500000,\r\n  \"targetUserIds\": [\"6913e0539ff199216cac7799\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9999/api/coupons",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"coupons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCoupon",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"discountPercent\": 60,\r\n  \"status\": \"active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9999/api/coupons/6912c091fd206a4dbc790131",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"coupons",
+								"6912c091fd206a4dbc790131"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCoupon",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9999/api/coupons/6912c091fd206a4dbc790131",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"coupons",
+								"6912c091fd206a4dbc790131"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserCoupons",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTFhYmE3YjEwMjI3ZDE0NDk3MTZlOCIsImVtYWlsIjoidmluaGh2MjhAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NjI4MzczMjgsImV4cCI6MTc2MjkyMzcyOH0.F-O1WFg6OeibRtZrcdnwBwnk1BaKTZwPispHV6l-cxE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9999/api/coupons/my",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"coupons",
+								"my"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Address",
+			"item": [
+				{
+					"name": "getAddresses",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTFhYmE3YjEwMjI3ZDE0NDk3MTZlOCIsImVtYWlsIjoidmluaGh2MjhAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NjI4Mzk3NjUsImV4cCI6MTc2MjkyNjE2NX0.-N4IA0TFV5aVWocRiV8N73_hRxk0G_0RIfBhNIZldFk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9999/api/addresses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createAddress",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTFhYmE3YjEwMjI3ZDE0NDk3MTZlOCIsImVtYWlsIjoidmluaGh2MjhAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NjI4Mzk3NjUsImV4cCI6MTc2MjkyNjE2NX0.-N4IA0TFV5aVWocRiV8N73_hRxk0G_0RIfBhNIZldFk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fullname\": \"Nguyen Van B\",\r\n  \"phone\": \"0912345678\",\r\n  \"street\": \"456 Nguyen Trai\",\r\n  \"city\": \"Ho Chi Minh\",\r\n  \"state\": \"HCM\",\r\n  \"country\": \"Vietnam\",\r\n  \"isDefault\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9999/api/addresses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateAddress",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTFhYmE3YjEwMjI3ZDE0NDk3MTZlOCIsImVtYWlsIjoidmluaGh2MjhAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NjI4Mzk3NjUsImV4cCI6MTc2MjkyNjE2NX0.-N4IA0TFV5aVWocRiV8N73_hRxk0G_0RIfBhNIZldFk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fullname\": \"Nguyen Van C\",\r\n  \"phone\": \"0987654321\",\r\n  \"isDefault\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9999/api/addresses/6912cd4eeddec42745072226",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"addresses",
+								"6912cd4eeddec42745072226"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deteleAddress",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTFhYmE3YjEwMjI3ZDE0NDk3MTZlOCIsImVtYWlsIjoidmluaGh2MjhAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NjI4Mzk3NjUsImV4cCI6MTc2MjkyNjE2NX0.-N4IA0TFV5aVWocRiV8N73_hRxk0G_0RIfBhNIZldFk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9999/api/addresses/6912cd4eeddec42745072226",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"addresses",
+								"6912cd4eeddec42745072226"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "updateStatusOrder",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "updateStatusShipping",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"status\" : \"Delivered\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9999/api/orders/shipping/6915ea90158e7ad10547caeb/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"orders",
+								"shipping",
+								"6915ea90158e7ad10547caeb",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateReturnRequestStatus",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"status\" : \"rejected\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9999/api/orders/returns/691628bd8adcf9dce8e46b21/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9999",
+							"path": [
+								"api",
+								"orders",
+								"returns",
+								"691628bd8adcf9dce8e46b21",
+								"status"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

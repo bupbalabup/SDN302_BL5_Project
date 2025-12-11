@@ -1,0 +1,49 @@
+.table-custom {
+  .ant-table-body {
+    overflow: auto !important;
+    transition: all 0.2s linear;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #c5ced9;
+      border-radius: 12px;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: #fff;
+    }
+  }
+
+  .ant-table-body:hover {
+    &::-webkit-scrollbar-thumb {
+      background: #ddd;
+    }
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+  }
+
+  .ant-table-thead .ant-table-cell {
+    font-size: 13px;
+    font-weight: 500;
+
+    .anticon svg path {
+      fill: #666;
+    }
+  }
+
+  .ant-table-column-sorter-inner svg path {
+    fill: rgba(243, 246, 249, 0.5);
+  }
+
+  .ant-table-sticky-scroll {
+    display: flex;
+    z-index: 11;
+  }
+
+  .ant-table-row {
+    cursor: pointer;
+  }
+}
