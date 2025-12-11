@@ -26,8 +26,9 @@ B1: Tạo files .env:
 
     FRONTEND_URL=http://localhost:3000 (Your FE URL here)
     
-B2: chạy: npm i
-    cho cả be và fe
+B2: 
+
+chạy: npm i cho cả be và fe
     
 B3: 
 
