@@ -1,8 +1,14 @@
 # SDN302_Project_eBay
 
+
 B1: Tạo files .env:
+1.1 Tạo .env FE:
+
     .env FE: 
     NEXT_PUBLIC_API_URL=http://localhost:9999/ (thay bằng backend của mình)
+
+1.2 Tạo .env BE:
+
     .env BE: 
     PORT=9999 (port for server)
     MONGO_URI=mongodb://127.0.0.1:27017/
@@ -11,7 +17,7 @@ B1: Tạo files .env:
     JWT_SECRET=your_access_secret_key
     JWT_REFRESH_SECRET=your_refresh_secret_key
     JWT_ACCESS_SECRET=access_secret_key_example
-
+    
     EMAIL_USER=(Your email)
     EMAIL_PASS=(Your app password)
 
@@ -24,5 +30,9 @@ B1: Tạo files .env:
     
 B2: chạy: npm i
     cho cả be và fe
-B3: Chạy FE: npm run dev
-    Chạy BE: npm start
+    
+B3: 
+
+Chạy FE: npm run dev 
+
+Chạy BE: npm start
