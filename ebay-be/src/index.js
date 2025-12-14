@@ -19,6 +19,7 @@ import feedbackRoutes from "./routes/feedbackRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import bidRoutes from "./routes/BidRoutes.js";
 import emailRoutes from "./routes/emailRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
 connectDB();
 
 const hostname = process.env.HOST_NAME || "localhost";
@@ -51,6 +52,7 @@ app.use("/api/feedbacks", feedbackRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/bid", bidRoutes);
 app.use("/api/email", emailRoutes);
+app.use("/api/payments", paymentRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).send("Wellcome to eBay BE!");
