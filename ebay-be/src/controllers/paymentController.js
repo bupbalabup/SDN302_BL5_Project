@@ -3,6 +3,8 @@ import Payment from '../models/Payment.js';
 import Order from '../models/Order.js';
 import User from '../models/User.js';
 import paymentService from '../services/paymentService.js';
+import paypalService from '../services/paypalService.js';
+import emailService from '../services/emailService.js';
 
 /**
  * POST /api/payments/cod
@@ -291,6 +293,203 @@ export const verifyPayment = async (req, res) => {
         status: payment.status,
         amount: payment.amount,
         paymentMethod: payment.paymentMethod
+      }
+    });
+  } catch (error) {
+    return handleServerError(res, error);
+  }
+};
+
+/**
+ * POST /api/payments/paypal/create
+ * Tạo đơn hàng PayPal thực tế
+ */
+export const createPayPalOrder = async (req, res) => {
+  const { orderId } = req.body;
+
+  if (!orderId) {
+    return res.status(400).json({
+      success: false,
+      message: 'Order ID là bắt buộc'
+    });
+  }
+
+  try {
+    // Kiểm tra đơn hàng
+    const order = await Order.findById(orderId).populate('items.productId');
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: 'Đơn hàng không tồn tại'
+      });
+    }
+
+    // Get userId from authenticated user or from order
+    const userId = req.user?.id || order.buyerId.toString();
+
+    if (order.buyerId.toString() !== userId.toString()) {
+      return res.status(403).json({
+        success: false,
+        message: 'Không có quyền thanh toán đơn hàng này'
+      });
+    }
+
+    if (order.status !== 'Processing') {
+      return res.status(400).json({
+        success: false,
+        message: 'Chỉ có thể thanh toán đơn hàng ở trạng thái "Processing"'
+      });
+    }
+
+    // Tạo đơn hàng trên PayPal
+    const orderDetails = {
+      items: order.items.map(item => ({
+        name: item.productId?.title || 'Sản phẩm',
+        quantity: parseInt(item.quantity) || 1,
+        price: parseFloat(item.unitPrice) || 0
+      }))
+    };
+
+    console.log('📦 Order Details for PayPal:', JSON.stringify(orderDetails, null, 2));
+    console.log('💰 Total Price:', order.totalPrice);
+
+    const paypalResult = await paypalService.createOrder(
+      orderId,
+      order.totalPrice,
+      orderDetails
+    );
+
+    if (!paypalResult.success) {
+      return res.status(400).json({
+        success: false,
+        message: paypalResult.message
+      });
+    }
+
+    // Lưu payment record
+    const payment = new Payment({
+      orderId,
+      buyerId: userId,
+      amount: order.totalPrice,
+      paymentMethod: 'PayPal',
+      status: 'pending',
+      transactionId: paypalResult.paypalOrderId,
+      securityKey: paymentService.generateSecurityKey(),
+      paymentDetails: {
+        email: order.buyerId.email,
+        paypalOrderId: paypalResult.paypalOrderId
+      },
+      metadata: {
+        ipAddress: req.ip,
+        userAgent: req.get('user-agent')
+      }
+    });
+
+    await payment.save();
+
+    return res.status(200).json({
+      success: true,
+      data: {
+        paymentId: payment._id,
+        paypalOrderId: paypalResult.paypalOrderId,
+        approveUrl: paypalResult.approveUrl,
+        status: paypalResult.status
+      }
+    });
+  } catch (error) {
+    return handleServerError(res, error);
+  }
+};
+
+/**
+ * POST /api/payments/paypal/capture
+ * Capture thanh toán PayPal thực tế
+ */
+export const capturePayPalOrder = async (req, res) => {
+  const { paymentId, paypalOrderId } = req.body;
+
+  if (!paymentId || !paypalOrderId) {
+    return res.status(400).json({
+      success: false,
+      message: 'Payment ID và PayPal Order ID là bắt buộc'
+    });
+  }
+
+  try {
+    // Tìm payment record
+    const payment = await Payment.findById(paymentId);
+    if (!payment) {
+      return res.status(404).json({
+        success: false,
+        message: 'Không tìm thấy thanh toán'
+      });
+    }
+
+    // Get userId from authenticated user or from payment record
+    const userId = req.user?.id || payment.buyerId.toString();
+
+    if (payment.buyerId.toString() !== userId.toString()) {
+      return res.status(403).json({
+        success: false,
+        message: 'Không có quyền thanh toán này'
+      });
+    }
+
+    // Capture order từ PayPal
+    const captureResult = await paypalService.captureOrder(paypalOrderId);
+
+    if (!captureResult.success) {
+      payment.status = 'failed';
+      await payment.save();
+
+      return res.status(400).json({
+        success: false,
+        message: captureResult.message
+      });
+    }
+
+    // Cập nhật payment
+    payment.status = 'completed';
+    payment.transactionId = captureResult.transactionId;
+    payment.confirmedAt = new Date();
+    await payment.save();
+
+    // Cập nhật order status
+    const order = await Order.findByIdAndUpdate(payment.orderId, {
+      status: 'Confirmed'
+    }, { new: true }).populate('buyerId');
+
+    // Gửi email xác nhận
+    try {
+      const orderData = {
+        orderId: order._id,
+        totalAmount: order.totalPrice,
+        paymentMethod: 'PayPal',
+        status: 'confirmed',
+        createdAt: order.createdAt || new Date(),
+        items: order.items.map(item => ({
+          name: item.productId?.title || 'Sản phẩm',
+          quantity: item.quantity,
+          price: item.unitPrice
+        }))
+      };
+
+      await emailService.sendPaymentConfirmation(order.buyerId.email, orderData);
+      console.log(`Payment confirmation email sent to ${order.buyerId.email}`);
+    } catch (emailError) {
+      console.error('Email sending error:', emailError);
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'Thanh toán PayPal thành công',
+      data: {
+        paymentId: payment._id,
+        orderId: payment.orderId,
+        status: 'completed',
+        transactionId: captureResult.transactionId,
+        amount: captureResult.amount,
+        payer: captureResult.payer
       }
     });
   } catch (error) {
