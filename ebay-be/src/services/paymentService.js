@@ -2,6 +2,8 @@ import crypto from 'crypto';
 import Payment from '../models/Payment.js';
 import Order from '../models/Order.js';
 import emailService from './emailService.js';
+import logger from '../utils/logger.js';
+import paymentPluginManager from '../plugins/PaymentPluginManager.js';
 
 class PaymentService {
   /**
@@ -113,6 +115,13 @@ class PaymentService {
    * Xử lý thanh toán PayPal mô phỏng
    */
   async processPayPalPayment(paymentData) {
+    const transactionId = logger.constructor.generateTransactionId('PAYPAL');
+
+    logger.logTransactionStart('PaymentService', transactionId, 'processPayPalPayment', {
+      orderId: paymentData.orderId,
+      amount: paymentData.amount
+    });
+
     try {
       const startTime = Date.now();
 
@@ -136,8 +145,14 @@ class PaymentService {
         throw new Error('Số tiền thanh toán không khớp với đơn hàng');
       }
 
-      // Tạo transaction ID và security key
-      const transactionId = this.generateTransactionId('PAYPAL');
+      // Sử dụng PayPal Payment Plugin
+      const pluginResult = await paymentPluginManager.processPayment(
+        'PayPal',
+        { orderId, buyerId, amount, paymentDetails },
+        transactionId
+      );
+
+      // Tạo security key
       const securityKey = this.generateSecurityKey();
 
       // Tạo payment record
@@ -146,43 +161,47 @@ class PaymentService {
         buyerId,
         amount,
         paymentMethod: 'PayPal',
-        status: 'pending',
+        status: pluginResult.status,
         transactionId,
         securityKey,
-        paymentDetails,
+        paymentDetails: {
+          ...paymentDetails,
+          gatewayTransactionId: pluginResult.gatewayTransactionId,
+          redirectUrl: pluginResult.redirectUrl
+        },
         metadata: {
           ipAddress,
-          userAgent
+          userAgent,
+          pluginProcessingTime: pluginResult.processingTime
         }
       });
 
       await payment.save();
 
-      // Mô phỏng xử lý PayPal
-      // Giả lập kiểm tra từ PayPal Gateway
-      const paypalVerificationResult = await this.simulatePayPalVerification(
-        amount,
-        paymentDetails.email
-      );
-
-      if (!paypalVerificationResult.success) {
-        payment.status = 'failed';
-        payment.failureReason = paypalVerificationResult.reason;
+      // Nếu payment hoàn tất, cập nhật order
+      if (pluginResult.status === 'completed') {
+        payment.confirmedAt = new Date();
         await payment.save();
 
-        throw new Error(`PayPal verification failed: ${paypalVerificationResult.reason}`);
+        order.status = 'Confirmed';
+        await order.save();
       }
 
-      // Thanh toán thành công
-      payment.status = 'completed';
-      payment.confirmedAt = new Date();
-      await payment.save();
-
-      // Cập nhật trạng thái đơn hàng
-      order.status = 'Confirmed';
-      await order.save();
-
       const processingTime = Date.now() - startTime;
+
+      logger.logPayment(transactionId, 'PayPal', amount, pluginResult.status, {
+        orderId,
+        buyerId,
+        paymentId: payment._id,
+        gatewayTransactionId: pluginResult.gatewayTransactionId,
+        processingTime
+      });
+
+      logger.logTransactionSuccess('PaymentService', transactionId, 'processPayPalPayment', {
+        paymentId: payment._id,
+        status: pluginResult.status,
+        processingTime
+      });
 
       return {
         success: true,
@@ -192,12 +211,16 @@ class PaymentService {
           status: payment.status,
           amount,
           paymentMethod: 'PayPal',
-          message: 'Thanh toán PayPal thành công!'
+          message: pluginResult.message,
+          redirectUrl: pluginResult.redirectUrl
         },
         processingTime // ms
       };
     } catch (error) {
-      console.error('PayPal Payment Error:', error);
+      logger.logTransactionFailure('PaymentService', transactionId, 'processPayPalPayment', error, {
+        orderId: paymentData.orderId,
+        amount: paymentData.amount
+      });
       throw error;
     }
   }
@@ -234,7 +257,11 @@ class PaymentService {
    * Lấy thông tin thanh toán
    */
   async getPaymentInfo(paymentId) {
+    const transactionId = logger.constructor.generateTransactionId('GET-PMT');
+
     try {
+      logger.debug('PaymentService', 'Getting payment info', transactionId, { paymentId });
+
       const payment = await Payment.findById(paymentId)
         .populate('orderId', 'totalPrice status')
         .populate('buyerId', 'email name');
@@ -245,7 +272,10 @@ class PaymentService {
 
       return payment;
     } catch (error) {
-      console.error('Get Payment Info Error:', error);
+      logger.error('PaymentService', 'Failed to get payment info', transactionId, {
+        paymentId,
+        error: error.message
+      });
       throw error;
     }
   }
@@ -279,6 +309,13 @@ class PaymentService {
    * Hủy thanh toán
    */
   async cancelPayment(paymentId, buyerId) {
+    const transactionId = logger.constructor.generateTransactionId('CANCEL-PMT');
+
+    logger.logTransactionStart('PaymentService', transactionId, 'cancelPayment', {
+      paymentId,
+      buyerId
+    });
+
     try {
       const payment = await Payment.findById(paymentId);
 
@@ -294,6 +331,15 @@ class PaymentService {
         throw new Error('Không thể hủy thanh toán đã hoàn tất');
       }
 
+      // Sử dụng plugin để cancel
+      const pluginName = payment.paymentMethod === 'PayPal' ? 'PayPal' : 'COD';
+      await paymentPluginManager.cancelPayment(
+        pluginName,
+        paymentId,
+        'Cancelled by user',
+        transactionId
+      );
+
       payment.status = 'cancelled';
       await payment.save();
 
@@ -304,12 +350,20 @@ class PaymentService {
         await order.save();
       }
 
+      logger.logTransactionSuccess('PaymentService', transactionId, 'cancelPayment', {
+        paymentId,
+        orderId: payment.orderId
+      });
+
       return {
         success: true,
         message: 'Thanh toán đã bị hủy'
       };
     } catch (error) {
-      console.error('Cancel Payment Error:', error);
+      logger.logTransactionFailure('PaymentService', transactionId, 'cancelPayment', error, {
+        paymentId,
+        buyerId
+      });
       throw error;
     }
   }
