@@ -26,7 +26,7 @@ export const createOrder = async (req, res) => {
       addressId,
       items,
       totalPrice,
-      status: "Processing",
+      status: "Pending",
     });
 
     const savedOrder = await newOrder.save();

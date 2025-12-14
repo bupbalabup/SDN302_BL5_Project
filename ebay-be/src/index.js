@@ -20,8 +20,10 @@ import orderRoutes from "./routes/orderRoutes.js";
 import bidRoutes from "./routes/BidRoutes.js";
 import emailRoutes from "./routes/emailRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
-connectDB();
+import { startAutoCancelOrders } from "./services/autoCancelOrders.js";
 
+connectDB();
+startAutoCancelOrders();
 const hostname = process.env.HOST_NAME || "localhost";
 const port = process.env.PORT || 9999;
 
