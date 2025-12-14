@@ -3,6 +3,8 @@ import { createNotification } from "../helpers/notificationHelper.js";
 import Order from "../models/Order.js";
 import ReturnRequest from "../models/ReturnRequest.js";
 import ShippingInfo from "../models/ShippingInfo.js";
+import emailService from "../services/emailService.js";
+import User from "../models/User.js";
 
 /**
  * POST /api/orders
@@ -59,6 +61,38 @@ export const createOrder = async (req, res) => {
         trackingNumber: savedShippingInfo.trackingNumber,
       },
     });
+
+    // Gửi email xác nhận đơn hàng
+    try {
+      const user = await User.findById(buyerId);
+      if (user && user.email) {
+        // Populate order để lấy thông tin sản phẩm
+        const populatedOrder = await Order.findById(savedOrder._id).populate({
+          path: 'items.productId',
+          select: 'title price'
+        });
+        
+        const orderData = {
+          orderId: savedOrder._id,
+          totalAmount: totalPrice,
+          paymentMethod: 'Online Payment',
+          status: 'confirmed',
+          createdAt: savedOrder.orderDate,
+          items: populatedOrder.items.map(item => ({
+            name: item.productId?.title || 'Product',
+            quantity: item.quantity,
+            price: item.unitPrice
+          })),
+          trackingNumber: savedShippingInfo.trackingNumber,
+          estimatedDelivery: estimateArrivalDate
+        };
+        
+        await emailService.sendPaymentConfirmation(user.email, orderData);
+        console.log(`Order confirmation email sent to ${user.email}`);
+      }
+    } catch (emailError) {
+      console.error('Failed to send order confirmation email:', emailError);
+    }
 
     return res.status(201).json({
       success: true,
@@ -123,6 +157,25 @@ export const updateOrderStatus = async (req, res) => {
         link: `/order/${updatedOrder._id}`,
         data: { orderId: updatedOrder._id, status: updatedOrder.status },
       });
+
+      // Gửi email cập nhật trạng thái đơn hàng
+      try {
+        const user = await User.findById(updatedOrder.buyerId);
+        if (user && user.email) {
+          const shippingInfo = await ShippingInfo.findOne({ orderId: updatedOrder._id });
+          const orderData = {
+            orderId: updatedOrder._id,
+            status: status.toLowerCase(),
+            trackingNumber: shippingInfo?.trackingNumber,
+            estimatedDelivery: shippingInfo?.estimateArrival
+          };
+          
+          await emailService.sendOrderStatusUpdate(user.email, orderData);
+          console.log(`Order status update email sent to ${user.email}`);
+        }
+      } catch (emailError) {
+        console.error('Failed to send order status update email:', emailError);
+      }
     }
 
     return res.status(200).json({ success: true, updatedOrder });
@@ -504,6 +557,34 @@ export const cancelOrder = async (req, res) => {
       link: `/order/${updatedOrder._id}`,
       data: { orderId: updatedOrder._id, status: updatedOrder.status },
     });
+
+    // Gửi email thông báo hủy đơn hàng
+    try {
+      const user = await User.findById(userId);
+      if (user && user.email) {
+        // Populate order để lấy thông tin sản phẩm
+        const populatedOrder = await Order.findById(updatedOrder._id).populate({
+          path: 'items.productId',
+          select: 'title price'
+        });
+        
+        const cancellationData = {
+          orderId: updatedOrder._id,
+          totalAmount: updatedOrder.totalPrice,
+          reason: 'Yêu cầu từ khách hàng',
+          items: populatedOrder.items.map(item => ({
+            name: item.productId?.title || 'Product',
+            quantity: item.quantity,
+            price: item.unitPrice
+          }))
+        };
+        
+        await emailService.sendOrderCancellationEmail(user.email, cancellationData);
+        console.log(`Order cancellation email sent to ${user.email}`);
+      }
+    } catch (emailError) {
+      console.error('Failed to send order cancellation email:', emailError);
+    }
 
     return res.status(200).json({ success: true, updatedOrder });
   } catch (error) {
