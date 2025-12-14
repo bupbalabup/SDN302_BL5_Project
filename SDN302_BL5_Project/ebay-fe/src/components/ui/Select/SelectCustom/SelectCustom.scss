@@ -1,0 +1,62 @@
+.select-custom-container {
+  width: 100%;
+
+  .ant-select {
+    width: 100%;
+
+    .ant-select-selector {
+      border-radius: 8px !important;
+      padding: 8px 12px !important;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      border: 1px solid #d9d9d9;
+      transition: all 0.25s ease;
+
+      &:hover {
+        border-color: #40a9ff;
+        box-shadow: 0 0 4px rgba(64, 169, 255, 0.3);
+      }
+    }
+
+    // khi focus
+    &.ant-select-focused .ant-select-selector {
+      border-color: #1677ff !important;
+      box-shadow: 0 0 6px rgba(22, 119, 255, 0.35);
+    }
+
+    // placeholder
+    .ant-select-selection-placeholder {
+      color: rgba(0, 0, 0, 0.45);
+      font-size: 14px;
+    }
+
+    // text đã chọn
+    .ant-select-selection-item {
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+
+  // dropdown menu
+  .ant-select-dropdown {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    .ant-select-item {
+      padding: 10px 12px;
+      font-size: 14px;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #f5faff;
+      }
+
+      &.ant-select-item-option-selected {
+        background: #e6f4ff !important;
+        font-weight: 600;
+        color: #1677ff;
+      }
+    }
+  }
+}

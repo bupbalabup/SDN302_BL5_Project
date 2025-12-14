@@ -1,0 +1,76 @@
+.floating-label-input-antd-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+  .ant-input,
+  .ant-input-number,
+  .ant-input-password,
+  .ant-input-search,
+  .ant-input-textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: all 0.25s ease;
+    background: #fff;
+
+    &:hover {
+      border-color: #40a9ff;
+      box-shadow: 0 0 4px rgba(64, 169, 255, 0.3);
+    }
+
+    &:focus {
+      border-color: #1677ff;
+      box-shadow: 0 0 6px rgba(22, 119, 255, 0.35);
+    }
+  }
+
+  // floating label
+  .floating-label {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.25s ease-in-out;
+    color: rgba(0, 0, 0, 0.45);
+    background: #fff;
+    padding: 0 6px;
+    pointer-events: none;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+
+  // khi input focus hoặc có text
+  &:has(input:focus),
+  &:has(input:not(:placeholder-shown)),
+  &:has(textarea:focus),
+  &:has(textarea:not(:placeholder-shown)) {
+    .floating-label {
+      top: 10px;
+      left: 10px;
+      font-size: 10px;
+      font-weight: 500;
+      color: #1677ff;
+      z-index: 1;
+    }
+  }
+
+  // style riêng cho textarea (cao hơn)
+  .ant-input-textarea {
+    min-height: 100px;
+    padding: 14px;
+  }
+
+  // style riêng cho input number
+  .ant-input-number {
+    padding: 0 11px;
+    height: 44px;
+
+    input {
+      padding: 0;
+      height: 100%;
+    }
+  }
+}

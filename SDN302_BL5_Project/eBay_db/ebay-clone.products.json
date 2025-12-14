@@ -1,0 +1,667 @@
+[{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a4746"
+  },
+  "title": "Apple iPhone 14 Pro 256GB",
+  "description": "Latest Apple iPhone 14 Pro with A16 Bionic chip and triple camera system.",
+  "price": 319.99,
+  "images": [
+    "https://i.ebayimg.com/images/g/tzUAAOSw1p5kB1Fw/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/qT4AAOSwZ5pkB1Fw/s-l960.webp",
+    "https://i.ebayimg.com/images/g/~ngAAOSw8c1kB1Ku/s-l140.webp",
+    "https://i.ebayimg.com/images/g/tZYAAOSwcZhkB1Ku/s-l960.webp",
+    "https://i.ebayimg.com/images/g/GCMAAOSwwLVkB1Ku/s-l960.webp",
+    "https://i.ebayimg.com/images/g/NpAAAOSwmatkB1Ku/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4735"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4724"
+  },
+  "isAuction": false,
+  "auctionEndTime": null
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a4747"
+  },
+  "title": "Samsung 55\" 4K Smart TV",
+  "description": "Crystal UHD display with HDR and Alexa built-in.",
+  "price": 600,
+  "images": [
+    "https://i.ebayimg.com/images/g/p4oAAOSwMNpgessG/s-l1600.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4735"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4728"
+  },
+  "isAuction": true,
+  "auctionEndTime": "2025-10-25T20:00:00"
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a4748"
+  },
+  "title": "Men's Leather Jacket",
+  "description": "Stylish black leather jacket for men, perfect for winter.",
+  "price": 120,
+  "images": [
+    "https://i.ebayimg.com/images/g/i1EAAOSwRRZbEjx-/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/ZzkAAOSwBfRbEjzF/s-l960.webp",
+    "https://i.ebayimg.com/images/g/HDsAAOSw48dbCU~D/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4736"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4723"
+  },
+  "isAuction": false,
+  "auctionEndTime": null
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a4749"
+  },
+  "title": "Women's Summer Dress",
+  "description": "Floral printed casual summer dress, light and comfortable.",
+  "price": 45,
+  "images": [
+    "https://i.ebayimg.com/images/g/gQYAAOSwsjZoPbBq/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/kY0AAOSwR45oPbGB/s-l960.webp",
+    "https://i.ebayimg.com/images/g/fxsAAOSwgM9oPbF6/s-l960.webp",
+    "https://i.ebayimg.com/images/g/pK4AAOSwG65oPbF~/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4736"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4723"
+  },
+  "isAuction": false,
+  "auctionEndTime": null
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a474a"
+  },
+  "title": "LEGO Star Wars Millennium Falcon",
+  "description": "Highly detailed LEGO set for Star Wars fans and collectors.",
+  "price": 160,
+  "images": [
+    "https://i.ebayimg.com/images/g/OIgAAeSwA8Zo9cvu/s-l960.webp",
+    "https://i.ebayimg.com/images/g/184AAeSwtnBo9cvu/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4738"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a472b"
+  },
+  "isAuction": true,
+  "auctionEndTime": "2025-10-23T18:30:00"
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a474b"
+  },
+  "title": "Vintage Rolex Submariner Watch",
+  "description": "Authentic Rolex Submariner, 1990 edition, great collector's item.",
+  "price": 8500,
+  "images": [
+    "https://i.ebayimg.com/images/g/PCoAAOSwDTpn6uXx/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/ZgUAAOSw7yhn6uX1/s-l960.webp",
+    "https://i.ebayimg.com/images/g/Y6UAAOSw~V5lDhiP/s-l960.webp",
+    "https://i.ebayimg.com/images/g/WKcAAeSwoItoshdk/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4739"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4726"
+  },
+  "isAuction": true,
+  "auctionEndTime": "2025-10-26T21:00:00"
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a474c"
+  },
+  "title": "Dell XPS 13 Laptop",
+  "description": "13-inch display, Intel i7, 16GB RAM, 512GB SSD - powerful and sleek.",
+  "price": 1299,
+  "images": [
+    "https://i.ebayimg.com/images/g/GRUAAeSw4g9o5624/s-l960.webp",
+    "https://i.ebayimg.com/images/g/mocAAeSwyTZo562y/s-l960.webp",
+    "https://i.ebayimg.com/images/g/-zAAAeSwt2to562y/s-l960.webp",
+    "https://i.ebayimg.com/images/g/uEgAAeSwXXho562z/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a473d"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4728"
+  },
+  "isAuction": false,
+  "auctionEndTime": null
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a474d"
+  },
+  "title": "Nike Air Zoom Pegasus 40",
+  "description": "Lightweight running shoes with excellent cushioning and style.",
+  "price": 130,
+  "images": [
+    "https://i.ebayimg.com/images/g/o2gAAOSwcYxoIViV/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/bQgAAOSwvxFoIViU/s-l960.webp",
+    "https://i.ebayimg.com/images/g/6rIAAOSwu-BoIViZ/s-l960.webp",
+    "https://i.ebayimg.com/images/g/wkwAAOSw6q5oIViW/s-l960.webp",
+    "https://i.ebayimg.com/images/g/79MAAOSw6PdoIViW/s-l960.webp",
+    "https://i.ebayimg.com/images/g/Z8MAAOSw1PBoIViW/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a473a"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a472b"
+  },
+  "isAuction": false,
+  "auctionEndTime": null
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a474e"
+  },
+  "title": "The Lord of the Rings - Box Set",
+  "description": "Complete trilogy by J.R.R. Tolkien in hardcover format.",
+  "price": 75,
+  "images": [
+    "https://i.ebayimg.com/images/g/rEMAAeSwdDVo9j6t/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/FvgAAeSw-pFo9j63/s-l960.webp",
+    "https://i.ebayimg.com/images/g/XlQAAeSwmBRo7SLa/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a473b"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4724"
+  },
+  "isAuction": false,
+  "auctionEndTime": null
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a474f"
+  },
+  "title": "Bosch Cordless Drill Set",
+  "description": "18V cordless drill with two batteries and carrying case, perfect for DIY.",
+  "price": 150,
+  "images": [
+    "https://i.ebayimg.com/images/g/lvYAAeSwNXFo9dxL/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/tUIAAeSwZCxo9dxL/s-l960.webp",
+    "https://i.ebayimg.com/images/g/EDoAAeSw-KVo9dxL/s-l140.webp",
+    "https://i.ebayimg.com/images/g/KIsAAeSwXEVo9dxL/s-l960.webp",
+    "https://i.ebayimg.com/images/g/JkAAAeSwP39o9dxL/s-l960.webp",
+    "https://i.ebayimg.com/images/g/dBUAAeSws1Bo9dxL/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4737"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4729"
+  },
+  "isAuction": true,
+  "auctionEndTime": "2025-10-24T22:00:00"
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a4750"
+  },
+  "title": "Apple MacBook Air M2 2023",
+  "description": "Apple MacBook Air M2 chip, 8GB RAM, 256GB SSD, 13-inch Retina display.",
+  "price": 1199,
+  "images": [
+    "https://i.ebayimg.com/images/g/q88AAeSwWLNo8PSs/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/vkgAAeSwSdJo8PSq/s-l960.webp",
+    "https://i.ebayimg.com/images/g/VpoAAeSwqCBo8PSr/s-l960.webp",
+    "https://i.ebayimg.com/images/g/icoAAeSwQ1po8PSr/s-l960.webp",
+    "https://i.ebayimg.com/images/g/UnUAAeSwOYZo8PSs/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a473d"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4728"
+  },
+  "isAuction": false,
+  "auctionEndTime": null
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a4751"
+  },
+  "title": "PlayStation 5 Console (Disc Edition)",
+  "description": "Next-gen PlayStation 5 console with ultra-fast SSD and DualSense controller.",
+  "price": 599,
+  "images": [
+    "https://i.ebayimg.com/images/g/OlQAAeSwu1Noj2uy/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/F4MAAeSw1Cloj2uy/s-l960.webp",
+    "https://i.ebayimg.com/images/g/LSQAAeSw66xoj2uy/s-l960.webp",
+    "https://i.ebayimg.com/images/g/JFwAAeSwEA5oj2uy/s-l960.webp",
+    "https://i.ebayimg.com/images/g/ImUAAeSw6c9oj2uy/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4735"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4724"
+  },
+  "isAuction": true,
+  "auctionEndTime": "2025-10-28T19:00:00"
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a4752"
+  },
+  "title": "Dyson V15 Detect Cordless Vacuum",
+  "description": "Dyson's most powerful cordless vacuum with laser dust detection technology.",
+  "price": 749,
+  "images": [
+    "https://i.ebayimg.com/images/g/6DAAAeSwbvFo8Ub9/s-l960.webp",
+    "https://i.ebayimg.com/images/g/l8wAAeSwCEdo8Ub9/s-l960.webp",
+    "https://i.ebayimg.com/images/g/sswAAeSw7sdo8Ub9/s-l960.webp",
+    "https://i.ebayimg.com/images/g/D1kAAeSw6Eto8Ub9/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4737"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4729"
+  },
+  "isAuction": false,
+  "auctionEndTime": null
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a4753"
+  },
+  "title": "Adidas Ultraboost 23 Men's Running Shoes",
+  "description": "Premium running shoes with responsive Boost midsole and knit upper.",
+  "price": 180,
+  "images": [
+    "https://i.ebayimg.com/images/g/M78AAOSwrbtnzqUm/s-l960.webp",
+    "https://i.ebayimg.com/images/g/C5UAAOSwapJnzqUn/s-l960.webp",
+    "https://i.ebayimg.com/images/g/Z4oAAOSwmeNnzqUo/s-l960.webp",
+    "https://i.ebayimg.com/images/g/tngAAOSwP-BnzqUq/s-l960.webp",
+    "https://i.ebayimg.com/images/g/sI0AAOSwGFtnzqUr/s-l960.webp",
+    "https://i.ebayimg.com/images/g/lPcAAOSwi3tnzqUu/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a473a"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a472b"
+  },
+  "isAuction": false,
+  "auctionEndTime": null
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a4754"
+  },
+  "title": "Canon EOS R10 Mirrorless Camera",
+  "description": "Compact mirrorless camera with 24.2MP sensor and 4K recording.",
+  "price": 999,
+  "images": [
+    "https://i.ebayimg.com/images/g/jYsAAOSwxCtmik7A/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/xB4AAOSwKr1mik7A/s-l960.webp",
+    "https://i.ebayimg.com/images/g/5VAAAOSwSzBmik7B/s-l960.webp",
+    "https://i.ebayimg.com/images/g/eVIAAOSwZ~Rmik7B/s-l960.webp",
+    "https://i.ebayimg.com/images/g/sTAAAOSw5H1mik7A/s-l960.webp",
+    "https://i.ebayimg.com/images/g/eKQAAOSwDa5mik7A/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4735"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4726"
+  },
+  "isAuction": true,
+  "auctionEndTime": "2025-10-27T17:30:00"
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a4755"
+  },
+  "title": "Antique Bronze Pocket Watch",
+  "description": "Vintage-style bronze pocket watch with Roman numerals, collectible design.",
+  "price": 80,
+  "images": [
+    "https://i.ebayimg.com/images/g/kPMAAOSwg1NlG7BO/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/PsQAAOSwNpplG7BO/s-l960.webp",
+    "https://i.ebayimg.com/images/g/P3EAAOSwyDllG7BN/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4739"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4723"
+  },
+  "isAuction": true,
+  "auctionEndTime": "2025-10-26T20:00:00"
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a4756"
+  },
+  "title": "Nintendo Switch OLED Model",
+  "description": "Handheld and TV gaming console with vivid 7-inch OLED screen.",
+  "price": 349,
+  "images": [
+    "https://i.ebayimg.com/images/g/u1EAAOSwYZRoLFW6/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/b4IAAOSwjRtoLFc9/s-l960.webp",
+    "https://i.ebayimg.com/images/g/cAIAAOSwPCFoLFhJ/s-l960.webp",
+    "https://i.ebayimg.com/images/g/nq4AAOSwDkFoLFhK/s-l960.webp",
+    "https://i.ebayimg.com/images/g/oIcAAOSwittoLFgg/s-l960.webp",
+    "https://i.ebayimg.com/images/g/l1UAAOSwK2doLFgh/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4738"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4724"
+  },
+  "isAuction": false,
+  "auctionEndTime": null
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a4757"
+  },
+  "title": "KitchenAid Artisan Stand Mixer 5Qt",
+  "description": "Iconic stand mixer for baking enthusiasts. Includes multiple attachments.",
+  "price": 449,
+  "images": [
+    "https://i.ebayimg.com/images/g/nkYAAOSwLVZV3MWK/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/IAQAAOSwu4BV3MWF/s-l960.webp",
+    "https://i.ebayimg.com/images/g/bWQAAOSwd0BV3MWN/s-l960.webp",
+    "https://i.ebayimg.com/images/g/If4AAOSwu4BV3MWR/s-l960.webp",
+    "https://i.ebayimg.com/images/g/n~IAAOSwLVZV3MWX/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4737"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4729"
+  },
+  "isAuction": false,
+  "auctionEndTime": null
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a4758"
+  },
+  "title": "Gucci GG Marmont Matelassé Bag",
+  "description": "Luxury Italian handbag with signature GG logo and quilted leather.",
+  "price": 1850,
+  "images": [
+    "https://i.ebayimg.com/images/g/V-cAAOSwtNhoXLpO/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/rlUAAOSw37VoXLpP/s-l960.webp",
+    "https://i.ebayimg.com/images/g/a-EAAOSwxnNoXLpQ/s-l960.webp",
+    "https://i.ebayimg.com/images/g/2K4AAOSwzYFoXLpS/s-l960.webp",
+    "https://i.ebayimg.com/images/g/4lUAAOSw2pRoXLpT/s-l960.webp",
+    "https://i.ebayimg.com/images/g/TZ4AAOSw6HVoXLpV/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4736"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4723"
+  },
+  "isAuction": true,
+  "auctionEndTime": "2025-10-25T22:00:00"
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a4759"
+  },
+  "title": "Yamaha Acoustic Guitar F310",
+  "description": "Classic full-size acoustic guitar, ideal for beginners and hobbyists.",
+  "price": 145,
+  "images": [
+    "https://i.ebayimg.com/images/g/7ukAAeSwYfpoyAMF/s-l960.webp",
+    "https://i.ebayimg.com/images/g/d7UAAeSwzGRoyAMF/s-l960.webp",
+    "https://i.ebayimg.com/images/g/0lAAAeSwU5poyAMF/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4738"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a472b"
+  },
+  "isAuction": false,
+  "auctionEndTime": null
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a475a"
+  },
+  "title": "GoPro HERO12 Black Action Camera",
+  "description": "Record adventures in 5.3K video with advanced stabilization and waterproof design.",
+  "price": 399,
+  "images": [
+    "https://i.ebayimg.com/images/g/n6YAAeSwR3Jo9PAD/s-l960.webp",
+    "https://i.ebayimg.com/images/g/96gAAeSwb25o9PAD/s-l960.webp",
+    "https://i.ebayimg.com/images/g/ouYAAeSwbodo9PAD/s-l960.webp",
+    "https://i.ebayimg.com/images/g/L0oAAeSwR1No9PAD/s-l960.webp",
+    "https://i.ebayimg.com/images/g/Qf4AAeSw7QZo9PAD/s-l960.webp",
+    "https://i.ebayimg.com/images/g/qbkAAeSwNyto9PAD/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4735"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4726"
+  },
+  "isAuction": false,
+  "auctionEndTime": null
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a475b"
+  },
+  "title": "Sony WH-1000XM5 Wireless Headphones",
+  "description": "Industry-leading noise cancellation with up to 30 hours of battery life.",
+  "price": 349,
+  "images": [
+    "https://i.ebayimg.com/images/g/DL0AAOSwbtxnTWQU/s-l960.webp",
+    "https://i.ebayimg.com/images/g/~ZQAAOSwsbtmIMeb/s-l960.webp",
+    "https://i.ebayimg.com/images/g/2r0AAOSwll5lIPnd/s-l1600.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4735"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4728"
+  },
+  "isAuction": false,
+  "auctionEndTime": null
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a475c"
+  },
+  "title": "LEGO Technic Lamborghini Sián FKP 37",
+  "description": "High-performance LEGO Technic model for advanced builders and collectors.",
+  "price": 380,
+  "images": [
+    "https://i.ebayimg.com/images/g/w9wAAeSwQDFo0gRk/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/UDsAAeSw3Hlo0gRk/s-l960.webp",
+    "https://i.ebayimg.com/images/g/m6YAAeSwnt5o0gWU/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4738"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a472b"
+  },
+  "isAuction": true,
+  "auctionEndTime": "2025-10-30T19:00:00"
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a475d"
+  },
+  "title": "Panasonic Lumix GH6 Camera",
+  "description": "Professional mirrorless camera for photo and 5.7K video recording.",
+  "price": 1999,
+  "images": [
+    "https://i.ebayimg.com/images/g/7OoAAeSwQc1o9IZM/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/9zYAAeSw7uZo9IZM/s-l960.webp",
+    "https://i.ebayimg.com/images/g/g2QAAeSw8hNo9IZM/s-l960.webp",
+    "https://i.ebayimg.com/images/g/1P8AAeSwlnto9IZM/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4735"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4726"
+  },
+  "isAuction": true,
+  "auctionEndTime": "2025-10-29T17:30:00"
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a475e"
+  },
+  "title": "The Witcher 3: Wild Hunt - Collector's Edition",
+  "description": "Limited edition set with figure, map, and artbook for The Witcher fans.",
+  "price": 299,
+  "images": [
+    "https://i.ebayimg.com/images/g/C5UAAeSwAnponV5n/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/AiMAAeSwe9NonV5n/s-l960.webp",
+    "https://i.ebayimg.com/images/g/fQcAAeSw5rVonV5o/s-l960.webp",
+    "https://i.ebayimg.com/images/g/GqcAAeSwce5onV5o/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4739"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4724"
+  },
+  "isAuction": true,
+  "auctionEndTime": "2025-10-28T20:00:00"
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a475f"
+  },
+  "title": "ASUS ROG Strix RTX 4080 Gaming PC",
+  "description": "High-end gaming desktop with RTX 4080 GPU, Ryzen 9 CPU, and 32GB RAM.",
+  "price": 2999,
+  "images": [
+    "https://i.ebayimg.com/images/g/R4wAAeSwp6xo0IiH/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/JLcAAeSwcGto0IiH/s-l960.webp",
+    "https://i.ebayimg.com/images/g/SJMAAeSwcU5o0IiH/s-l960.webp",
+    "https://i.ebayimg.com/images/g/OS0AAeSw6M5o0IiH/s-l960.webp",
+    "https://i.ebayimg.com/images/g/R4sAAeSwp6xo0IiH/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a473d"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4728"
+  },
+  "isAuction": false,
+  "auctionEndTime": null
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a4760"
+  },
+  "title": "BMW M3 Diecast Model 1:18",
+  "description": "Detailed collectible diecast model of BMW M3 with opening doors and hood.",
+  "price": 85,
+  "images": [
+    "https://i.ebayimg.com/images/g/4kQAAOSwAY9n2jDG/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/NCkAAOSwvRdn2jDI/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a473c"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4726"
+  },
+  "isAuction": true,
+  "auctionEndTime": "2025-10-25T19:00:00"
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a4761"
+  },
+  "title": "Ray-Ban Wayfarer Sunglasses",
+  "description": "Classic design sunglasses with polarized lenses for UV protection.",
+  "price": 160,
+  "images": [
+    "https://i.ebayimg.com/images/g/pD0AAeSwKe1o8iu~/s-l960.webp",
+    "https://i.ebayimg.com/images/g/~qgAAeSwROFo8iu~/s-l960.webp",
+    "https://i.ebayimg.com/images/g/3LIAAeSwV5Bo8iu~/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4736"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4723"
+  },
+  "isAuction": false,
+  "auctionEndTime": null
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a4762"
+  },
+  "title": "Apple Watch Series 9 GPS 45mm",
+  "description": "Smartwatch with heart rate monitor, fitness tracking, and Always-On display.",
+  "price": 399,
+  "images": [
+    "https://i.ebayimg.com/images/g/1nQAAOSwN8Rl1fSk/s-l1600.webp",
+    "https://i.ebayimg.com/images/g/lN8AAOSwjr9l1fTs/s-l960.webp",
+    "https://i.ebayimg.com/images/g/LrkAAOSwHmdl1fT2/s-l960.webp",
+    "https://i.ebayimg.com/images/g/F5wAAOSwQ4Nl1fT~/s-l960.webp",
+    "https://i.ebayimg.com/images/g/SL4AAOSwVPBl1fUL/s-l140.webp",
+    "https://i.ebayimg.com/images/g/P3MAAOSweGFl1fUV/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a4735"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4724"
+  },
+  "isAuction": false,
+  "auctionEndTime": null
+},
+{
+  "_id": {
+    "$oid": "68f65ef8ce81f243332a4763"
+  },
+  "title": "Vintage Vinyl Record - The Beatles Abbey Road",
+  "description": "Original vinyl record from The Beatles, Abbey Road album, 1969 edition.",
+  "price": 250,
+  "images": [
+    "https://i.ebayimg.com/images/g/yEUAAeSw5pVooaKo/s-l960.webp",
+    "https://i.ebayimg.com/images/g/S8YAAeSwszBooaKo/s-l960.webp",
+    "https://i.ebayimg.com/images/g/VgUAAeSwMKJooaKp/s-l960.webp"
+  ],
+  "categoryId": {
+    "$oid": "68f6587dce81f243332a473b"
+  },
+  "sellerId": {
+    "$oid": "68f6560bce81f243332a4726"
+  },
+  "isAuction": true,
+  "auctionEndTime": "2025-10-27T22:00:00"
+}]

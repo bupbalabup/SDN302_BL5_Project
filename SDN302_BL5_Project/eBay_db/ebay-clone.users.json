@@ -1,0 +1,120 @@
+[{
+  "_id": {
+    "$oid": "68f6560bce81f243332a4722"
+  },
+  "fullname": "John Doe",
+  "email": "john@example.com",
+  "password": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+  "role": "user",
+  "avatarURL": "https://cdn-icons-png.flaticon.com/128/4322/4322991.png",
+  "emailVerified": true,
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68f6560bce81f243332a4723"
+  },
+  "fullname": "Sarah Smith",
+  "email": "sarah@example.com",
+  "password": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+  "role": "seller",
+  "avatarURL": "https://cdn-icons-png.flaticon.com/128/6997/6997662.png",
+  "emailVerified": true,
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68f6560bce81f243332a4724"
+  },
+  "fullname": "Mike Johnson",
+  "email": "mike@example.com",
+  "password": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+  "role": "seller",
+  "avatarURL": "https://cdn-icons-png.flaticon.com/128/1999/1999625.png",
+  "emailVerified": true,
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68f6560bce81f243332a4725"
+  },
+  "fullname": "Emily Wilson",
+  "email": "emily@example.com",
+  "password": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+  "role": "user",
+  "avatarURL": "https://cdn-icons-png.flaticon.com/128/1154/1154448.png",
+  "emailVerified": true,
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68f6560bce81f243332a4726"
+  },
+  "fullname": "Kevin Store",
+  "email": "kevin@example.com",
+  "password": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+  "role": "seller",
+  "avatarURL": "https://cdn-icons-png.flaticon.com/128/236/236832.png",
+  "emailVerified": true,
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68f6560bce81f243332a4727"
+  },
+  "fullname": "Anna Tran",
+  "email": "anna@example.com",
+  "password": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+  "role": "user",
+  "avatarURL": "https://cdn-icons-png.flaticon.com/128/11498/11498793.png",
+  "emailVerified": true,
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68f6560bce81f243332a4728"
+  },
+  "fullname": "Laptop Zone",
+  "email": "laptop@example.com",
+  "password": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+  "role": "seller",
+  "avatarURL": "https://cdn-icons-png.flaticon.com/128/560/560277.png",
+  "emailVerified": true,
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68f6560bce81f243332a4729"
+  },
+  "fullname": "Green Garden",
+  "email": "garden@example.com",
+  "password": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+  "role": "seller",
+  "avatarURL": "https://cdn-icons-png.flaticon.com/128/1177/1177568.png",
+  "emailVerified": true,
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68f6560bce81f243332a472a"
+  },
+  "fullname": "Oliver Parker",
+  "email": "oliver@example.com",
+  "password": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+  "role": "user",
+  "avatarURL": "https://cdn-icons-png.flaticon.com/128/3940/3940403.png",
+  "emailVerified": true,
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68f6560bce81f243332a472b"
+  },
+  "fullname": "Lucas Shop",
+  "email": "lucas@example.com",
+  "password": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+  "role": "seller",
+  "avatarURL": "https://cdn-icons-png.flaticon.com/128/4202/4202831.png",
+  "emailVerified": true,
+  "status": "active"
+}]

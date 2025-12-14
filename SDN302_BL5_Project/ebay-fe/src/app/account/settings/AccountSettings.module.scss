@@ -1,0 +1,493 @@
+// AccountSettings.module.scss
+// Coupon Card Styles
+.couponCard {
+  border-radius: 12px;
+  border: 2px solid #f0f0f0;
+  transition: all 0.3s ease;
+  overflow: hidden;
+
+  &:hover {
+    border-color: #1890ff;
+    box-shadow: 0 4px 12px rgba(24, 144, 255, 0.15);
+    transform: translateY(-2px);
+  }
+}
+
+.expiredCoupon {
+  opacity: 0.6;
+  background-color: #fafafa;
+
+  &:hover {
+    border-color: #d9d9d9;
+    box-shadow: none;
+    transform: none;
+  }
+}
+
+.couponDiscount {
+  text-align: center;
+  padding: 20px 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px;
+  color: white;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.discountAmount {
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.discountLabel {
+  font-size: 13px;
+  margin-top: 4px;
+  opacity: 0.95;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.couponInfo {
+  padding: 8px 0;
+}
+
+.couponCode {
+  background: #f5f5f5;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px dashed #d9d9d9;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+// Responsive cho mobile
+@media (max-width: 576px) {
+  .couponDiscount {
+    margin-bottom: 16px;
+    min-height: 80px;
+  }
+
+  .discountAmount {
+    font-size: 24px;
+  }
+
+  .couponCode {
+    margin-top: 12px;
+    text-align: center;
+  }
+}
+
+.container {
+  width: 1300px;
+  min-height: 100vh;
+  padding: 24px;
+  margin: auto;
+}
+
+.loadingContainer,
+.noUserContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7f7f7;
+}
+
+.loadingCard,
+.noUserCard {
+  text-align: center;
+  padding: 48px;
+  border-radius: 4px;
+  border: 1px solid #e5e5e5;
+  box-shadow: none;
+}
+
+.loadingTitle {
+  color: #707070;
+  margin-top: 16px;
+  font-weight: 400;
+}
+
+.noUserIcon {
+  font-size: 64px;
+  color: #3665f3;
+  margin-bottom: 24px;
+}
+
+.noUserTitle {
+  color: #191919;
+  font-weight: 500;
+}
+
+.noUserText {
+  font-size: 14px;
+  margin-bottom: 32px;
+  color: #707070;
+}
+
+.loginButton {
+  background: #3665f3;
+  border: none;
+  height: 48px;
+  font-size: 15px;
+  border-radius: 24px;
+  font-weight: 600;
+}
+
+.header {
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 16px 0;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.headerWrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.headerTitle {
+  margin: 0;
+  color: #191919;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.mainWrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.sidebarCard,
+.mainCard,
+.promoCard,
+.overviewCard {
+  border-radius: 4px;
+  border: 1px solid #e5e5e5;
+  box-shadow: none;
+  background: #fff;
+  margin-bottom: 16px;
+}
+
+.profileSection {
+  background: #fff;
+  padding: 32px 24px;
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.profileAvatar {
+  margin-bottom: 16px;
+  border: 3px solid #3665f3;
+  background-color: #f0f4ff;
+}
+
+.profileName {
+  color: #191919;
+  margin: 0 0 8px 0;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.profileEmail {
+  color: #707070;
+  font-size: 14px;
+}
+
+.emailIcon {
+  margin-right: 6px;
+}
+
+.menu {
+  border: none;
+  background: transparent;
+  font-size: 14px;
+}
+
+.promoCard {
+  background: linear-gradient(135deg, #3665f3 0%, #5b84ff 100%);
+  color: #fff;
+}
+
+.promoContent {
+  padding: 8px 0;
+}
+
+.promoTitle {
+  color: #fff;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.promoText {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 13px;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.learnMoreButton {
+  background: #fff;
+  color: #3665f3;
+  border: none;
+  border-radius: 20px;
+  font-weight: 600;
+  height: 36px;
+  font-size: 14px;
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 500;
+  color: #191919;
+  padding: 8px 0;
+}
+
+.editButton {
+  background: #3665f3;
+  border: none;
+  border-radius: 20px;
+  height: 36px;
+  font-weight: 500;
+  font-size: 14px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.fieldLabel {
+  color: #191919;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.required {
+  color: #e62048;
+}
+
+.inputField {
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  font-size: 14px;
+  height: 48px;
+}
+
+.prefixIcon {
+  color: #767676;
+  font-size: 16px;
+}
+
+.displayField {
+  padding: 14px 16px;
+  background: #f7f7f7;
+  border-radius: 4px;
+  font-size: 15px;
+  color: #191919;
+  border: 1px solid #e5e5e5;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+.divider {
+  margin: 24px 0;
+  border-color: #e5e5e5;
+}
+
+.cancelButton {
+  min-width: 100px;
+  height: 36px;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.saveButton {
+  background: #3665f3;
+  border: none;
+  min-width: 120px;
+  height: 36px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.overviewTitle {
+  color: #191919;
+  margin-bottom: 24px;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.overviewItem {
+  text-align: center;
+  padding: 24px 16px;
+  background: #f7f7f7;
+  border-radius: 4px;
+  border: 1px solid #e5e5e5;
+}
+
+.overviewIcon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.overviewIconUser {
+  color: #3665f3;
+}
+
+.overviewIconBell {
+  color: #e62048;
+}
+
+.overviewIconLock {
+  color: #64b450;
+}
+
+.itemLabel {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 13px;
+  color: #707070;
+  font-weight: 600;
+}
+
+.itemValue {
+  font-size: 18px;
+  font-weight: 600;
+  color: #191919;
+}
+
+// Toast Styles
+.toast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 10000;
+  min-width: 320px;
+  max-width: 450px;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 16px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  animation: slideInRight 0.3s ease-out;
+}
+
+.toastIcon {
+  flex-shrink: 0;
+}
+
+.toastContent {
+  flex: 1;
+}
+
+.toastTitle {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.toastDescription {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.toastClose {
+  color: inherit;
+  padding: 4px;
+  min-width: auto;
+  height: auto;
+}
+
+.toast.success {
+  background-color: #f6ffed;
+  border: 2px solid #52c41a;
+
+  .toastIcon,
+  .toastTitle,
+  .toastDescription {
+    color: #135200;
+  }
+
+  .toastClose {
+    color: #135200;
+  }
+}
+
+.toast.error {
+  background-color: #fff2f0;
+  border: 2px solid #ff4d4f;
+
+  .toastIcon,
+  .toastTitle,
+  .toastDescription {
+    color: #5c0011;
+  }
+
+  .toastClose {
+    color: #5c0011;
+  }
+}
+
+.toast.warning {
+  background-color: #fffbe6;
+  border: 2px solid #faad14;
+
+  .toastIcon,
+  .toastTitle,
+  .toastDescription {
+    color: #613400;
+  }
+
+  .toastClose {
+    color: #613400;
+  }
+}
+
+.toast.info {
+  background-color: #e6f7ff;
+  border: 2px solid #1890ff;
+
+  .toastIcon,
+  .toastTitle,
+  .toastDescription {
+    color: #003a8c;
+  }
+
+  .toastClose {
+    color: #003a8c;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}

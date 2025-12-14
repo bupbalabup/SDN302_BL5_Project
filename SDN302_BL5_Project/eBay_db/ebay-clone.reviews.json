@@ -1,0 +1,546 @@
+[{
+  "_id": {
+    "$oid": "68f66422ce81f243332a476b"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4746"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4722"
+  },
+  "rating": 5,
+  "comment": "Very good product, carefully packaged, worth the money.",
+  "createdAt": "2025-10-10T09:00:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a476c"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4747"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4725"
+  },
+  "rating": 4,
+  "comment": "Fast delivery, stable quality.",
+  "createdAt": "2025-10-11T10:15:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a476d"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4748"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4727"
+  },
+  "rating": 5,
+  "comment": "Very satisfied, will support next time.",
+  "createdAt": "2025-10-11T14:45:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a476e"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4749"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a472a"
+  },
+  "rating": 3,
+  "comment": "The product is okay but the packaging is a bit dented.",
+  "createdAt": "2025-10-12T09:00:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a476f"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a474a"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4722"
+  },
+  "rating": 4,
+  "comment": "As described, reasonable price.",
+  "createdAt": "2025-10-12T16:30:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4770"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a474b"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4725"
+  },
+  "rating": 5,
+  "comment": "Great product, worth it buy!",
+  "createdAt": "2025-10-13T11:20:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4771"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a474c"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4727"
+  },
+  "rating": 2,
+  "comment": "Not satisfied, the product has a slight defect.",
+  "createdAt": "2025-10-13T19:40:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4772"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a474d"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a472a"
+  },
+  "rating": 4,
+  "comment": "Translate Good customer service, enthusiastic advice.",
+  "createdAt": "2025-10-14T09:10:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4773"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a474e"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4722"
+  },
+  "rating": 5,
+  "comment": "Buy it for the second time, still very good.",
+  "createdAt": "2025-10-14T15:30:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4774"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a474f"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4725"
+  },
+  "rating": 3,
+  "comment": "Average quality, delivery is a bit slow.",
+  "createdAt": "2025-10-15T13:00:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4775"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4750"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4727"
+  },
+  "rating": 4,
+  "comment": "Good to use, worth the price.",
+  "createdAt": "2025-10-15T17:45:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4776"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4751"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a472a"
+  },
+  "rating": 5,
+  "comment": "The shop responded quickly, the product is genuine.",
+  "createdAt": "2025-10-16T08:20:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4777"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4752"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4722"
+  },
+  "rating": 2,
+  "comment": "The product is not the same as the picture, a bit disappointed.",
+  "createdAt": "2025-10-16T11:10:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4778"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4753"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4725"
+  },
+  "rating": 5,
+  "comment": "Great! Will recommend to friends.",
+  "createdAt": "2025-10-16T20:05:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4779"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4754"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4727"
+  },
+  "rating": 3,
+  "comment": "Okay, packaging needs improvement.",
+  "createdAt": "2025-10-17T09:25:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a477a"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4755"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a472a"
+  },
+  "rating": 4,
+  "comment": "The product works well, will buy again.",
+  "createdAt": "2025-10-17T13:50:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a477b"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4756"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4722"
+  },
+  "rating": 1,
+  "comment": "The product is defective, cannot be used.",
+  "createdAt": "2025-10-17T20:00:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a477c"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4757"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4725"
+  },
+  "rating": 5,
+  "comment": "Carefully packaged, genuine product.",
+  "createdAt": "2025-10-18T10:10:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a477d"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4758"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4727"
+  },
+  "rating": 4,
+  "comment": "Delivered on time, product as described.",
+  "createdAt": "2025-10-18T18:25:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a477e"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4759"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a472a"
+  },
+  "rating": 5,
+  "comment": "The product works smoothly, I like it!",
+  "createdAt": "2025-10-19T11:00:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a477f"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a475a"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4722"
+  },
+  "rating": 4,
+  "comment": "The product meets my needs, fast delivery.",
+  "createdAt": "2025-10-19T15:00:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4780"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a475b"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4725"
+  },
+  "rating": 3,
+  "comment": "A bit expensive for the quality.",
+  "createdAt": "2025-10-20T09:15:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4781"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a475c"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4727"
+  },
+  "rating": 5,
+  "comment": "Nice product, true to picture, reputable shop.",
+  "createdAt": "2025-10-20T11:30:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4782"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a475d"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a472a"
+  },
+  "rating": 2,
+  "comment": "The color is not the same as the picture.",
+  "createdAt": "2025-10-20T14:50:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4783"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a475e"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4722"
+  },
+  "rating": 5,
+  "comment": "Satisfied, the product is as described, the price is reasonable.",
+  "createdAt": "2025-10-20T17:20:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4784"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a475f"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4725"
+  },
+  "rating": 3,
+  "comment": "The product is good, but the delivery is a bit slow.",
+  "createdAt": "2025-10-20T19:45:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4785"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4760"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4727"
+  },
+  "rating": 4,
+  "comment": "Met my expectations.",
+  "createdAt": "2025-10-21T09:00:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4786"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4761"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a472a"
+  },
+  "rating": 5,
+  "comment": "The product is well packaged, no scratches.",
+  "createdAt": "2025-10-21T12:40:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4787"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4762"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4722"
+  },
+  "rating": 4,
+  "comment": "Good price, the product works stably.",
+  "createdAt": "2025-10-21T14:30:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4788"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4763"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4725"
+  },
+  "rating": 5,
+  "comment": "The shop is very enthusiastic, high quality products.",
+  "createdAt": "2025-10-21T17:10:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4789"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4746"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4727"
+  },
+  "rating": 3,
+  "comment": "Can be used but the battery is weak.",
+  "createdAt": "2025-10-21T20:00:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a478a"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4747"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a472a"
+  },
+  "rating": 4,
+  "comment": "Better than expected, sturdy packaging.",
+  "createdAt": "2025-10-22T08:20:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a478b"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4748"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4722"
+  },
+  "rating": 5,
+  "comment": "Extremely fast delivery, great product!",
+  "createdAt": "2025-10-22T10:45:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a478c"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a4749"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4725"
+  },
+  "rating": 2,
+  "comment": "Not as described, the shop needs to check more carefully.",
+  "createdAt": "2025-10-22T12:00:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a478d"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a474a"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4727"
+  },
+  "rating": 4,
+  "comment": "Good product, good service.",
+  "createdAt": "2025-10-22T14:00:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a478e"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a474b"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a472a"
+  },
+  "rating": 5,
+  "comment": "Everything is perfect!",
+  "createdAt": "2025-10-22T16:20:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a478f"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a474c"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4722"
+  },
+  "rating": 4,
+  "comment": "Very good, reasonable price.",
+  "createdAt": "2025-10-22T18:10:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4790"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a474d"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4725"
+  },
+  "rating": 5,
+  "comment": "The shop delivers the goods very quickly and thoughtfully.",
+  "createdAt": "2025-10-22T19:40:00Z"
+},
+{
+  "_id": {
+    "$oid": "68f66422ce81f243332a4791"
+  },
+  "productId": {
+    "$oid": "68f65ef8ce81f243332a474e"
+  },
+  "reviewerId": {
+    "$oid": "68f6560bce81f243332a4727"
+  },
+  "rating": 4,
+  "comment": "As described, reliable.",
+  "createdAt": "2025-10-22T21:00:00Z"
+}]
