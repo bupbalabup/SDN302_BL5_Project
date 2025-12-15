@@ -35,6 +35,7 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
 
   // PayPal Modal
   const [isPayPalModalOpen, setPayPalModalOpen] = useState(false);
+  const [currentOrderId, setCurrentOrderId] = useState(null);
 
   // Modal system
   const { isOpen, modalContent, showModal, hideModal, handleConfirm } =
@@ -222,20 +223,13 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
     }
   };
 
-  // ========== PAYPAL (FAKE) ==========
+  // ========== PAYPAL (REAL) ==========
   const handleFakePayPalSuccess = async () => {
     setPayPalModalOpen(false);
-
+    
+    // Order đã được tạo, chỉ cần clear cart
     setIsProcessing(true);
     try {
-      const payload = {
-        ...buildOrderPayload(),
-        paymentMethod: "PAYPAL",
-        paymentStatus: "PAID",
-        orderStatus: "PENDING",
-      };
-
-      const res = await orderService.createOrder(payload);
       await cartService.clearCart();
 
       showModal({
@@ -243,7 +237,7 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
         message: "Your PayPal payment was successful and order created!",
         type: "success",
         onConfirm: () => {
-          router.push(`/order/${res.order?._id}`);
+          router.push(`/order/${currentOrderId}`);
         },
       });
     } catch (err) {
@@ -289,7 +283,7 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
     return true;
   };
 
-  const handlePayment = () => {
+  const handlePayment = async () => {
     if (!validateBeforePay()) return;
 
     if (paymentMethod === "COD") {
@@ -297,7 +291,35 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
     }
 
     if (paymentMethod === "PAYPAL") {
-      return setPayPalModalOpen(true);
+      // Tạo order trước
+      setIsProcessing(true);
+      try {
+        const payload = {
+          ...buildOrderPayload(),
+          paymentMethod: "PAYPAL",
+          paymentStatus: "UNPAID",
+          orderStatus: "PENDING",
+        };
+
+        const res = await orderService.createOrder(payload);
+        
+        // Lưu orderId
+        setCurrentOrderId(res.order?._id);
+        console.log("📦 Order created:", res.order?._id);
+        
+        // Mở modal
+        setPayPalModalOpen(true);
+      } catch (err) {
+        console.error("Order creation error:", err);
+        showModal({
+          title: "Order Creation Failed",
+          message: "Could not create order. Please try again.",
+          type: "error",
+        });
+      } finally {
+        setIsProcessing(false);
+      }
+      return;
     }
 
     showModal({
@@ -330,6 +352,7 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
 
       <FakePayPalModal
         open={isPayPalModalOpen}
+        orderId={currentOrderId}
         onClose={() => setPayPalModalOpen(false)}
         onSuccess={handleFakePayPalSuccess}
         onFail={handleFakePayPalFail}
