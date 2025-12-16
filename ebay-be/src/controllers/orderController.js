@@ -63,37 +63,8 @@ export const createOrder = async (req, res) => {
       },
     });
 
-    // Gửi email xác nhận đơn hàng
-    try {
-      const user = await User.findById(buyerId);
-      if (user && user.email) {
-        // Populate order để lấy thông tin sản phẩm
-        const populatedOrder = await Order.findById(savedOrder._id).populate({
-          path: 'items.productId',
-          select: 'title price'
-        });
-        
-        const orderData = {
-          orderId: savedOrder._id,
-          totalAmount: totalPrice,
-          paymentMethod: 'Online Payment',
-          status: 'confirmed',
-          createdAt: savedOrder.orderDate,
-          items: populatedOrder.items.map(item => ({
-            name: item.productId?.title || 'Product',
-            quantity: item.quantity,
-            price: item.unitPrice
-          })),
-          trackingNumber: savedShippingInfo.trackingNumber,
-          estimatedDelivery: estimateArrivalDate
-        };
-        
-        await emailService.sendPaymentConfirmation(user.email, orderData);
-        console.log(`Order confirmation email sent to ${user.email}`);
-      }
-    } catch (emailError) {
-      console.error('Failed to send order confirmation email:', emailError);
-    }
+    // Email xác nhận thanh toán sẽ được gửi sau khi thanh toán thành công
+    // Không gửi email ở đây vì đơn hàng chưa được thanh toán
 
     return res.status(201).json({
       success: true,

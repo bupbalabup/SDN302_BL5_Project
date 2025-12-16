@@ -9,7 +9,22 @@ const addressSchema = mongoose.Schema({
   city: { type: String },
   state: { type: String },
   country: { type: String },
+  latitude: { type: Number },
+  longitude: { type: Number },
   isDefault: { type: Boolean, default: false },
+  // Province/District/Ward for Vietnam addresses
+  province: {
+    code: { type: String },
+    name: { type: String },
+  },
+  district: {
+    code: { type: String },
+    name: { type: String },
+  },
+  ward: {
+    code: { type: String },
+    name: { type: String },
+  },
 });
 
-export default mongoose.model("Address", addressSchema, "addresses")
+export default mongoose.model("Address", addressSchema, "addresses");

@@ -20,7 +20,9 @@
   "role": "seller",
   "avatarURL": "https://cdn-icons-png.flaticon.com/128/6997/6997662.png",
   "emailVerified": true,
-  "status": "active"
+  "status": "active",
+  "latitude": 10.7769,
+  "longitude": 106.6963
 },
 {
   "_id": {
@@ -32,7 +34,9 @@
   "role": "seller",
   "avatarURL": "https://cdn-icons-png.flaticon.com/128/1999/1999625.png",
   "emailVerified": true,
-  "status": "active"
+  "status": "active",
+  "latitude": 21.0285,
+  "longitude": 105.8542
 },
 {
   "_id": {
@@ -56,7 +60,9 @@
   "role": "seller",
   "avatarURL": "https://cdn-icons-png.flaticon.com/128/236/236832.png",
   "emailVerified": true,
-  "status": "active"
+  "status": "active",
+  "latitude": 16.0544,
+  "longitude": 108.2022
 },
 {
   "_id": {
@@ -80,7 +86,9 @@
   "role": "seller",
   "avatarURL": "https://cdn-icons-png.flaticon.com/128/560/560277.png",
   "emailVerified": true,
-  "status": "active"
+  "status": "active",
+  "latitude": 10.7617,
+  "longitude": 106.6832
 },
 {
   "_id": {
@@ -92,7 +100,9 @@
   "role": "seller",
   "avatarURL": "https://cdn-icons-png.flaticon.com/128/1177/1177568.png",
   "emailVerified": true,
-  "status": "active"
+  "status": "active",
+  "latitude": 21.0444,
+  "longitude": 105.8386
 },
 {
   "_id": {
@@ -116,5 +126,7 @@
   "role": "seller",
   "avatarURL": "https://cdn-icons-png.flaticon.com/128/4202/4202831.png",
   "emailVerified": true,
-  "status": "active"
+  "status": "active",
+  "latitude": 10.7920,
+  "longitude": 106.7199
 }]

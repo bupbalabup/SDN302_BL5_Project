@@ -42,7 +42,7 @@ export const createCODPayment = async (req, res) => {
     if (order.status !== 'Processing' && order.status !== 'Pending') {
       return res.status(400).json({
         success: false,
-        message: `Chỉ có thể thanh toán đơn hàng ở trạng thái "Processing", hiện tại là "${order.status}"`
+        message: `Chỉ có thể thanh toán đơn hàng ở trạng thái "Pending" hoặc "Processing", hiện tại là "${order.status}"`
       });
     }
 
@@ -145,14 +145,6 @@ export const createPayPalPayment = async (req, res) => {
       userAgent: req.get('user-agent')
     });
 
-    // Gửi email xác nhận
-    try {
-      const payment = await Payment.findById(paymentResult.payment.id);
-      await paymentService.sendPaymentConfirmationEmail(payment, user);
-    } catch (emailError) {
-      console.error('Email sending error:', emailError);
-    }
-
     // Kiểm tra thời gian xử lý
     if (paymentResult.processingTime > 2000) {
       console.warn(
@@ -163,7 +155,7 @@ export const createPayPalPayment = async (req, res) => {
     return res.status(200).json({
       success: true,
       data: paymentResult,
-      message: 'Thanh toán PayPal thành công'
+      message: 'Thanh toán PayPal đang chờ xác nhận'
     });
   } catch (error) {
     return handleServerError(res, error);
@@ -337,7 +329,7 @@ export const createPayPalOrder = async (req, res) => {
     if (order.status !== 'Processing' && order.status !== 'Pending') {
       return res.status(400).json({
         success: false,
-        message: 'Chỉ có thể thanh toán đơn hàng ở trạng thái "Processing"'
+        message: 'Chỉ có thể thanh toán đơn hàng ở trạng thái "Pending" hoặc "Processing"'
       });
     }
 
@@ -457,7 +449,9 @@ export const capturePayPalOrder = async (req, res) => {
     // Cập nhật order status
     const order = await Order.findByIdAndUpdate(payment.orderId, {
       status: 'Confirmed'
-    }, { new: true }).populate('buyerId');
+    }, { new: true })
+      .populate('buyerId')
+      .populate('items.productId', 'title price');
 
     // Gửi email xác nhận
     try {

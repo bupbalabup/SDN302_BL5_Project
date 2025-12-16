@@ -1,6 +1,11 @@
 "use client";
 
-import { SHIPPING_TOTAL_USD, USD_TO_VND_RATE } from "@/lib/constants";
+import {
+  calculateShippingUSD,
+  USD_TO_VND_RATE,
+  DEFAULT_ITEM_WEIGHT_KG,
+} from "@/lib/constants";
+import { getAddressesByUser } from "@/services/addressService";
 import React, { useState, useEffect } from "react";
 import cartService from "@/services/cartService";
 import orderService from "@/services/orderService";
@@ -36,6 +41,9 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
   // PayPal Modal
   const [isPayPalModalOpen, setPayPalModalOpen] = useState(false);
   const [currentOrderId, setCurrentOrderId] = useState(null);
+
+  // Seller addresses cache (sellerId -> address)
+  const [sellerAddressesMap, setSellerAddressesMap] = useState({});
 
   // Modal system
   const { isOpen, modalContent, showModal, hideModal, handleConfirm } =
@@ -74,14 +82,116 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
     setUser(storedUser);
   }, []);
 
+  // ===== PRICE CALCULATION =====
+  const baseSubtotalUSD = parseFloat(cart.subtotal) || 0;
+  const baseDiscountUSD = parseFloat(cart.discountTotal) || 0;
+
+  // Tạm thời: nếu item không có weightKg từ DB,
+  // dùng DEFAULT_ITEM_WEIGHT_KG cho mỗi sản phẩm.
+  const getItemWeightKg = (item) => item.weightKg ?? DEFAULT_ITEM_WEIGHT_KG;
+
+  const totalWeightKg = cartItems.reduce(
+    (sum, group) =>
+      sum +
+      (group.products || []).reduce(
+        (s, it) => s + getItemWeightKg(it) * (it.quantity ?? 1),
+        0
+      ),
+    0
+  );
+
+  const addrForShipping = addresses.find(
+    (addr) => addr._id === selectedAddressId
+  );
+
+  useEffect(() => {
+    const fetchSellerAddresses = async () => {
+      try {
+        const sellerIds = Array.from(
+          new Set((cartItems || []).map((g) => g.seller?._id).filter(Boolean))
+        );
+
+        const map = {};
+        await Promise.all(
+          sellerIds.map(async (sid) => {
+            try {
+              const addrs = await getAddressesByUser(sid);
+              // pick default or first
+              const chosen =
+                (addrs || []).find((a) => a.isDefault) || addrs?.[0] || null;
+              map[sid] = chosen;
+            } catch (e) {
+              console.warn("Failed to fetch seller addresses for", sid, e);
+            }
+          })
+        );
+
+        setSellerAddressesMap(map);
+      } catch (error) {
+        console.error("Error fetching seller addresses:", error);
+      }
+    };
+
+    if (cartItems.length > 0) {
+      fetchSellerAddresses();
+    } else {
+      setSellerAddressesMap({});
+    }
+  }, [cartItems]);
+
   if (!user) {
     return <Loading />;
   }
 
-  // ===== PRICE CALCULATION =====
-  const baseSubtotalUSD = parseFloat(cart.subtotal) || 0;
-  const baseDiscountUSD = parseFloat(cart.discountTotal) || 0;
-  const shippingUSD = SHIPPING_TOTAL_USD;
+  // Calculate distance between two lat/lon points (Haversine formula)
+  const haversineKm = (lat1, lon1, lat2, lon2) => {
+    if ([lat1, lon1, lat2, lon2].some((v) => v === undefined || v === null))
+      return 0;
+    const toRad = (deg) => (deg * Math.PI) / 180;
+    const R = 6371; // km
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRad(lat1)) *
+        Math.cos(toRad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  };
+
+  // Compute shipping per seller (sum)
+  const shippingUSD = (() => {
+    if (!addrForShipping)
+      return calculateShippingUSD(0, { weightKg: totalWeightKg });
+
+    const buyerLat = addrForShipping.latitude;
+    const buyerLon = addrForShipping.longitude;
+
+    let total = 0;
+    for (const group of cartItems) {
+      const sid = group.seller?._id;
+      const sellerAddr = sellerAddressesMap[sid];
+
+      const sellerLat = sellerAddr?.latitude;
+      const sellerLon = sellerAddr?.longitude;
+
+      const groupWeight = (group.products || []).reduce(
+        (s, it) => s + getItemWeightKg(it) * (it.quantity ?? 1),
+        0
+      );
+
+      const distKm =
+        sellerLat && sellerLon && buyerLat && buyerLon
+          ? haversineKm(sellerLat, sellerLon, buyerLat, buyerLon)
+          : addrForShipping?.distanceKm ?? addrForShipping?.distance ?? 0;
+
+      total += calculateShippingUSD(distKm, { weightKg: groupWeight });
+    }
+
+    return Math.round(total * 100) / 100;
+  })();
 
   const currentSubtotalUSD = appliedCouponData
     ? appliedCouponData.cartTotal
@@ -191,7 +301,7 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
       items: orderItems,
       totalPrice: parseFloat(currentTotalUSD.toFixed(2)),
       couponCodeApplied: appliedCouponData ? cart.couponCode : null,
-      shippingCost: SHIPPING_TOTAL_USD,
+      shippingCost: shippingUSD,
       discountAmount: parseFloat(currentDiscountUSD.toFixed(2)),
       paymentMethod,
     };
