@@ -2,7 +2,7 @@ import cron from "node-cron";
 import Order from "../models/Order.js";
 import { createNotification } from "../helpers/notificationHelper.js";
 
-const PAYMENT_TIMEOUT_MINUTES = 3;
+const PAYMENT_TIMEOUT_MINUTES = 10;
 
 export const startAutoCancelOrders = () => {
   cron.schedule("* * * * *", async () => {
@@ -26,7 +26,7 @@ export const startAutoCancelOrders = () => {
     targetType: "single",
     userId: order.buyerId,
     title: " Order Auto-Canceled",
-    message: `Your order #${order._id} was automatically canceled due to unpaid timeout (30 minutes).`,
+    message: `Your order #${order._id} was automatically canceled due to unpaid timeout (10 minutes).`,
     link: `/order/${order._id}`,
     data: {
       orderId: order._id,

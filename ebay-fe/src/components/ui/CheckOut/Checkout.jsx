@@ -41,6 +41,15 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
   const { isOpen, modalContent, showModal, hideModal, handleConfirm } =
     useModal();
 
+  useEffect(() => {
+  const pendingOrderId = sessionStorage.getItem("pendingOrderId");
+
+  if (pendingOrderId) {
+    setCurrentOrderId(pendingOrderId);
+  }
+}, []);
+
+
   // ===== FETCH ADDRESSES =====
   const fetchAddresses = async () => {
     try {
@@ -226,7 +235,7 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
   // ========== PAYPAL (REAL) ==========
   const handleFakePayPalSuccess = async () => {
     setPayPalModalOpen(false);
-    
+
     // Order đã được tạo, chỉ cần clear cart
     setIsProcessing(true);
     try {
@@ -291,6 +300,10 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
     }
 
     if (paymentMethod === "PAYPAL") {
+      if (currentOrderId) {
+    setPayPalModalOpen(true);
+    return;
+  }
       // Tạo order trước
       setIsProcessing(true);
       try {
@@ -302,13 +315,14 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
         };
 
         const res = await orderService.createOrder(payload);
-        
-        // Lưu orderId
-        setCurrentOrderId(res.order?._id);
-        console.log("📦 Order created:", res.order?._id);
-        
-        // Mở modal
+
+        const orderId = res.order?._id;
+
+        sessionStorage.setItem("pendingOrderId", orderId);
+
+        setCurrentOrderId(orderId);
         setPayPalModalOpen(true);
+
       } catch (err) {
         console.error("Order creation error:", err);
         showModal({

@@ -6,6 +6,8 @@ import orderService from "@/services/orderService";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
+const PAYMENT_TIMEOUT_MINUTES = 10;
+const PAYMENT_TIMEOUT_MS = PAYMENT_TIMEOUT_MINUTES * 60 * 1000;
 const STATUS_OPTIONS = [
   "All",
   "Pending",
@@ -19,7 +21,20 @@ const STATUS_OPTIONS = [
 
 const formatNum = (value) =>
   new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(value);
+const getRemainingTime = (orderDate, now) => {
+  if (!orderDate) return 0;
+  const expireAt = new Date(orderDate).getTime() + PAYMENT_TIMEOUT_MS;
+  return Math.max(expireAt - now, 0);
+};
 
+const formatCountdown = (ms) => {
+  const totalSeconds = Math.floor(ms / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes.toString().padStart(2, "0")}:${seconds
+    .toString()
+    .padStart(2, "0")}`;
+};
 const canRequestReturn = (order) => {
   if (order.status !== "Delivered") {
     return false;
@@ -42,7 +57,16 @@ export default function OrderHistory() {
   const [selectedStatus, setSelectedStatus] = useState("All");
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [now, setNow] = useState(Date.now());
   const router = useRouter();
+
+  /* ===== Tick mỗi giây để countdown ===== */
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setNow(Date.now());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   // State cho Modal thông báo (thay thế alert)
   const [notification, setNotification] = useState({
@@ -197,8 +221,7 @@ export default function OrderHistory() {
       console.error("Error canceling order:", error);
       showNotification(
         "Error",
-        `An error occurred while canceling the order: ${
-          error.message || "Please try again."
+        `An error occurred while canceling the order: ${error.message || "Please try again."
         }`
       );
     } finally {
@@ -222,11 +245,10 @@ export default function OrderHistory() {
               onClick={() => setSelectedStatus(status)}
               className={`
               whitespace-nowrap px-5 py-2 rounded-full text-sm border transition-all
-              ${
-                selectedStatus === status
+              ${selectedStatus === status
                   ? "bg-black text-white border-black shadow-sm"
                   : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200"
-              }
+                }
             `}
             >
               {status}
@@ -241,6 +263,7 @@ export default function OrderHistory() {
         ) : (
           <div className="space-y-10">
             {ordersToDisplay.map((order) => {
+              const remaining = getRemainingTime(order.orderDate, now);
               const totalUSD = order.totalPrice;
               const totalVND = totalUSD * USD_TO_VND_RATE;
 
@@ -250,9 +273,12 @@ export default function OrderHistory() {
                   className="bg-white rounded-2xl shadow p-6 hover:shadow-md transition"
                 >
                   <div className="flex justify-between items-center border-b pb-3 mb-4">
-                    <p className="text-sm bg-blue-100 text-blue-600 px-3 py-1 rounded-full w-fit">
-                      {order.status}
-                    </p>
+                    <div className="flex flex-col gap-1">
+                      <p className="text-sm bg-blue-100 text-blue-600 px-3 py-1 rounded-full w-fit">
+                        {order.status}
+                      </p>
+                    </div>
+
                     <p className="text-xs text-gray-400">
                       Order ID: {order._id}
                     </p>
@@ -348,6 +374,35 @@ export default function OrderHistory() {
                           Request a return
                         </button>
                       )}
+                      {/* ===== COUNTDOWN HERE ===== */}
+                      {order.status === "Pending" && (
+  <div className="mt-2 flex flex-col gap-2">
+    {remaining > 0 ? (
+      <>
+        <p className="text-red-500 font-mono text-sm">
+          Auto cancel in {formatCountdown(remaining)}
+        </p>
+
+        <button
+          onClick={() => {
+  sessionStorage.setItem("pendingOrderId", order._id);
+  router.push("/checkout");
+}}
+
+          className="w-fit px-4 py-1.5 text-sm font-medium
+                     text-white bg-blue-600 rounded-full
+                     hover:bg-blue-700 transition"
+        >
+          Continue payment
+        </button>
+      </>
+    ) : (
+      <p className="text-red-500 text-sm">
+        Payment time expired
+      </p>
+    )}
+  </div>
+)}
                       <button className="hover:underline">Remove</button>
                     </div>
                   </div>
@@ -386,11 +441,10 @@ export default function OrderHistory() {
             <button
               onClick={handleSubmitReturn}
               disabled={!returnReason.trim()}
-              className={`px-4 py-2 text-sm font-medium text-white rounded-lg transition ${
-                returnReason.trim()
+              className={`px-4 py-2 text-sm font-medium text-white rounded-lg transition ${returnReason.trim()
                   ? "bg-blue-600 hover:bg-blue-700"
                   : "bg-blue-400 cursor-not-allowed"
-              }`}
+                }`}
             >
               Submit Request
             </button>

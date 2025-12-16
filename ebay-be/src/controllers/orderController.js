@@ -27,6 +27,7 @@ export const createOrder = async (req, res) => {
       items,
       totalPrice,
       status: "Pending",
+      orderDate: new Date()
     });
 
     const savedOrder = await newOrder.save();
@@ -102,6 +103,17 @@ export const createOrder = async (req, res) => {
   } catch (error) {
     return handleServerError(res, error);
   }
+};
+
+export const getOrderById = async (req, res) => {
+  const order = await Order.findById(req.params.id)
+    .populate("items.productId");
+
+  if (!order) {
+    return res.status(404).json({ success: false });
+  }
+
+  res.json({ success: true, order });
 };
 
 /**
