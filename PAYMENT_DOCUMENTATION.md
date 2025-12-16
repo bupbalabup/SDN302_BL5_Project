@@ -222,7 +222,7 @@ Create Order
     ↓
 Create Payment (status: pending) → POST /api/payments/cod
     ↓
-Order status: Confirmed
+Order status: Processing
     ↓
 Order Shipped
     ↓
@@ -249,7 +249,7 @@ PayPal redirects to callback → GET /api/payments/paypal/callback
     ↓
 Payment status: completed
     ↓
-Order status: Confirmed ✓
+Order status: Processing ✓
 ```
 
 ---

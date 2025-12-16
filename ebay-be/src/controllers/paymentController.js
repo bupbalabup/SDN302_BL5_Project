@@ -39,10 +39,10 @@ export const createCODPayment = async (req, res) => {
     }
 
     // Kiểm tra trạng thái đơn hàng
-    if (order.status !== 'Processing' && order.status !== 'Pending') {
+    if (order.status !== 'Pending') {
       return res.status(400).json({
         success: false,
-        message: `Chỉ có thể thanh toán đơn hàng ở trạng thái "Pending" hoặc "Processing", hiện tại là "${order.status}"`
+        message: `Chỉ có thể thanh toán đơn hàng ở trạng thái "Pending", hiện tại là "${order.status}"`
       });
     }
 
@@ -121,10 +121,10 @@ export const createPayPalPayment = async (req, res) => {
     }
 
     // Kiểm tra trạng thái đơn hàng
-    if (order.status !== 'Processing' && order.status !== 'Pending') {
+    if (order.status !== 'Pending') {
       return res.status(400).json({
         success: false,
-        message: `Chỉ có thể thanh toán đơn hàng ở trạng thái "Processing" hoặc là "Pending", hiện tại là "${order.status}"`
+        message: `Chỉ có thể thanh toán đơn hàng ở trạng thái "Pending", hiện tại là "${order.status}"`
       });
     }
 
@@ -299,7 +299,10 @@ export const verifyPayment = async (req, res) => {
 export const createPayPalOrder = async (req, res) => {
   const { orderId } = req.body;
 
+  console.log('🔵 createPayPalOrder called with:', { orderId, hasUser: !!req.user });
+
   if (!orderId) {
+    console.log('❌ Missing orderId');
     return res.status(400).json({
       success: false,
       message: 'Order ID là bắt buộc'
@@ -308,28 +311,43 @@ export const createPayPalOrder = async (req, res) => {
 
   try {
     // Kiểm tra đơn hàng
+    console.log('🔍 Finding order:', orderId);
     const order = await Order.findById(orderId).populate('items.productId');
     if (!order) {
+      console.log('❌ Order not found:', orderId);
       return res.status(404).json({
         success: false,
         message: 'Đơn hàng không tồn tại'
       });
     }
 
+    console.log('✅ Order found:', {
+      orderId: order._id,
+      status: order.status,
+      buyerId: order.buyerId,
+      itemsCount: order.items.length,
+      totalPrice: order.totalPrice
+    });
+
     // Get userId from authenticated user or from order
     const userId = req.user?.id || order.buyerId.toString();
 
+    console.log('👤 User check:', { userId, orderBuyerId: order.buyerId.toString(), match: order.buyerId.toString() === userId.toString() });
+
     if (order.buyerId.toString() !== userId.toString()) {
+      console.log('❌ User not authorized');
       return res.status(403).json({
         success: false,
         message: 'Không có quyền thanh toán đơn hàng này'
       });
     }
 
-    if (order.status !== 'Processing' && order.status !== 'Pending') {
+    // Kiểm tra trạng thái đơn hàng
+    if (order.status !== 'Pending') {
+      console.log('❌ Invalid order status:', order.status);
       return res.status(400).json({
         success: false,
-        message: 'Chỉ có thể thanh toán đơn hàng ở trạng thái "Pending" hoặc "Processing"'
+        message: `Chỉ có thể thanh toán đơn hàng ở trạng thái "Pending", hiện tại là "${order.status}"`
       });
     }
 
@@ -351,7 +369,10 @@ export const createPayPalOrder = async (req, res) => {
       orderDetails
     );
 
+    console.log('💳 PayPal Result:', paypalResult);
+
     if (!paypalResult.success) {
+      console.log('❌ PayPal order creation failed:', paypalResult.message);
       return res.status(400).json({
         success: false,
         message: paypalResult.message
@@ -448,7 +469,7 @@ export const capturePayPalOrder = async (req, res) => {
 
     // Cập nhật order status
     const order = await Order.findByIdAndUpdate(payment.orderId, {
-      status: 'Confirmed'
+      status: 'Processing'
     }, { new: true })
       .populate('buyerId')
       .populate('items.productId', 'title price');
@@ -459,7 +480,7 @@ export const capturePayPalOrder = async (req, res) => {
         orderId: order._id,
         totalAmount: order.totalPrice,
         paymentMethod: 'PayPal',
-        status: 'confirmed',
+        status: 'processing',
         createdAt: order.createdAt || new Date(),
         items: order.items.map(item => ({
           name: item.productId?.title || 'Sản phẩm',

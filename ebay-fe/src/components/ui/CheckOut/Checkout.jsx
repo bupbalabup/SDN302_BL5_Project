@@ -49,15 +49,6 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
   const { isOpen, modalContent, showModal, hideModal, handleConfirm } =
     useModal();
 
-  useEffect(() => {
-  const pendingOrderId = sessionStorage.getItem("pendingOrderId");
-
-  if (pendingOrderId) {
-    setCurrentOrderId(pendingOrderId);
-  }
-}, []);
-
-
   // ===== FETCH ADDRESSES =====
   const fetchAddresses = async () => {
     try {
@@ -154,9 +145,9 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(toRad(lat1)) *
-        Math.cos(toRad(lat2)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
+      Math.cos(toRad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
   };
@@ -351,6 +342,11 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
     try {
       await cartService.clearCart();
 
+      // Clear payment data từ sessionStorage
+      sessionStorage.removeItem("paymentId");
+      sessionStorage.removeItem("paypalOrderId");
+      sessionStorage.removeItem("orderId");
+
       showModal({
         title: "Payment Successful",
         message: "Your PayPal payment was successful and order created!",
@@ -372,6 +368,7 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
 
   const handleFakePayPalFail = () => {
     setPayPalModalOpen(false);
+
     showModal({
       title: "Payment Failed",
       message: "Demo: PayPal payment did NOT complete.",
@@ -410,11 +407,7 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
     }
 
     if (paymentMethod === "PAYPAL") {
-      if (currentOrderId) {
-    setPayPalModalOpen(true);
-    return;
-  }
-      // Tạo order trước
+      // Luôn tạo order mới khi thanh toán PayPal
       setIsProcessing(true);
       try {
         const payload = {
@@ -427,8 +420,6 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
         const res = await orderService.createOrder(payload);
 
         const orderId = res.order?._id;
-
-        sessionStorage.setItem("pendingOrderId", orderId);
 
         setCurrentOrderId(orderId);
         setPayPalModalOpen(true);

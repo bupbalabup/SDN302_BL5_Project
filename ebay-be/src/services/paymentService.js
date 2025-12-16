@@ -88,7 +88,7 @@ class PaymentService {
       await payment.save();
 
       // Cập nhật trạng thái đơn hàng
-      order.status = 'Confirmed';
+      order.status = 'Processing';
       await order.save();
 
       const processingTime = Date.now() - startTime;
@@ -183,7 +183,7 @@ class PaymentService {
         payment.confirmedAt = new Date();
         await payment.save();
 
-        order.status = 'Confirmed';
+        order.status = 'Processing';
         await order.save();
       }
 
@@ -379,7 +379,7 @@ class PaymentService {
         orderId: payment.orderId,
         totalAmount: payment.amount,
         paymentMethod: payment.paymentMethod === 'PayPal' ? 'PayPal' : 'Thanh toán khi nhận hàng (COD)',
-        status: 'confirmed',
+        status: 'processing',
         createdAt: payment.createdAt,
         items: order.items.map(item => ({
           name: item.productId?.title || 'Sản phẩm',

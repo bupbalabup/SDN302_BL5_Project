@@ -120,7 +120,7 @@ Authorization: Bearer <token>
         "orderId": {
           "_id": "693ea08a8638739a938b09e4",
           "totalPrice": 48.6,
-          "status": "Confirmed"
+          "status": "Processing"
         },
         "buyerId": "65a1b2c3d4e5f6g7h8i9j0k2",
         "amount": 48.6,
@@ -157,7 +157,7 @@ Authorization: Bearer <token>
     "orderId": {
       "_id": "693ea08a8638739a938b09e4",
       "totalPrice": 48.6,
-      "status": "Confirmed"
+      "status": "Processing"
     },
     "buyerId": {
       "_id": "65a1b2c3d4e5f6g7h8i9j0k2",

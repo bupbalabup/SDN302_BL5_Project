@@ -61,8 +61,10 @@ export default function PayPalSuccess() {
           if (data.data && data.data.orderId) {
             setOrderId(data.data.orderId);
           }
+          // Clear all payment related data from sessionStorage
           sessionStorage.removeItem("paymentId");
           sessionStorage.removeItem("paypalOrderId");
+          sessionStorage.removeItem("orderId");
         } else {
           setError(data.message || "Capture failed");
         }

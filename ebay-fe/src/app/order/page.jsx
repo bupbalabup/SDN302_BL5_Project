@@ -376,33 +376,32 @@ export default function OrderHistory() {
                       )}
                       {/* ===== COUNTDOWN HERE ===== */}
                       {order.status === "Pending" && (
-  <div className="mt-2 flex flex-col gap-2">
-    {remaining > 0 ? (
-      <>
-        <p className="text-red-500 font-mono text-sm">
-          Auto cancel in {formatCountdown(remaining)}
-        </p>
+                        <div className="mt-2 flex flex-col gap-2">
+                          {remaining > 0 ? (
+                            <>
+                              <p className="text-red-500 font-mono text-sm">
+                                Auto cancel in {formatCountdown(remaining)}
+                              </p>
 
-        <button
-          onClick={() => {
-  sessionStorage.setItem("pendingOrderId", order._id);
-  router.push("/checkout");
-}}
+                              <button
+                                onClick={() => {
+                                  router.push("/checkout");
+                                }}
 
-          className="w-fit px-4 py-1.5 text-sm font-medium
+                                className="w-fit px-4 py-1.5 text-sm font-medium
                      text-white bg-blue-600 rounded-full
                      hover:bg-blue-700 transition"
-        >
-          Continue payment
-        </button>
-      </>
-    ) : (
-      <p className="text-red-500 text-sm">
-        Payment time expired
-      </p>
-    )}
-  </div>
-)}
+                              >
+                                Continue payment
+                              </button>
+                            </>
+                          ) : (
+                            <p className="text-red-500 text-sm">
+                              Payment time expired
+                            </p>
+                          )}
+                        </div>
+                      )}
                       <button className="hover:underline">Remove</button>
                     </div>
                   </div>
@@ -442,8 +441,8 @@ export default function OrderHistory() {
               onClick={handleSubmitReturn}
               disabled={!returnReason.trim()}
               className={`px-4 py-2 text-sm font-medium text-white rounded-lg transition ${returnReason.trim()
-                  ? "bg-blue-600 hover:bg-blue-700"
-                  : "bg-blue-400 cursor-not-allowed"
+                ? "bg-blue-600 hover:bg-blue-700"
+                : "bg-blue-400 cursor-not-allowed"
                 }`}
             >
               Submit Request

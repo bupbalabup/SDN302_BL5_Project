@@ -127,7 +127,7 @@ Status: CREATED
 1. Tạo order với PayPal
 2. Đăng nhập Sandbox account
 3. Xác nhận thanh toán
-4. Kiểm tra order status = "Confirmed"
+4. Kiểm tra order status = "Processing"
 5. Kiểm tra email xác nhận
 
 ### Test Case 2: Hủy thanh toán

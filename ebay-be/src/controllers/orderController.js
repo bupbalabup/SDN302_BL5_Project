@@ -50,11 +50,9 @@ export const createOrder = async (req, res) => {
       targetType: "single",
       userId: buyerId,
       title: "🎉 Order Created Successfully!",
-      message: `Your order #${
-        savedOrder._id
-      } is being processed. Tracking number: ${
-        savedShippingInfo.trackingNumber
-      }. Estimated arrival: ${estimateArrivalDate.toLocaleDateString()}.`,
+      message: `Your order #${savedOrder._id
+        } is being processed. Tracking number: ${savedShippingInfo.trackingNumber
+        }. Estimated arrival: ${estimateArrivalDate.toLocaleDateString()}.`,
       link: `/order/${savedOrder._id}`,
       data: {
         orderId: savedOrder._id,
@@ -152,7 +150,7 @@ export const updateOrderStatus = async (req, res) => {
             trackingNumber: shippingInfo?.trackingNumber,
             estimatedDelivery: shippingInfo?.estimateArrival
           };
-          
+
           await emailService.sendOrderStatusUpdate(user.email, orderData);
           console.log(`Order status update email sent to ${user.email}`);
         }
@@ -524,10 +522,10 @@ export const cancelOrder = async (req, res) => {
       });
     }
 
-    if (order.status !== "Pending" && order.status !== "Processing") {
+    if (order.status !== "Pending") {
       return res.status(400).json({
         success: false,
-        message: `Cannot cancel order. Current status is **${order.status}**.`,
+        message: `Cannot cancel order. Current status is **${order.status}**. Only orders with status "Pending" can be canceled.`,
       });
     }
 
@@ -557,7 +555,7 @@ export const cancelOrder = async (req, res) => {
           path: 'items.productId',
           select: 'title price'
         });
-        
+
         const cancellationData = {
           orderId: updatedOrder._id,
           totalAmount: updatedOrder.totalPrice,
@@ -568,7 +566,7 @@ export const cancelOrder = async (req, res) => {
             price: item.unitPrice
           }))
         };
-        
+
         await emailService.sendOrderCancellationEmail(user.email, cancellationData);
         console.log(`Order cancellation email sent to ${user.email}`);
       }
