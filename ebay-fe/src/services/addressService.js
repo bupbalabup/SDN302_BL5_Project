@@ -15,6 +15,20 @@ export const getAddresses = async () => {
 };
 
 /**
+ * Public: get addresses for a given user (seller)
+ * GET /api/addresses/user/:userId
+ */
+export const getAddressesByUser = async (userId) => {
+  try {
+    const response = await api.get(`/addresses/user/${userId}`);
+    return response.data.addresses;
+  } catch (error) {
+    console.error(`Error fetching addresses for user ${userId}:`, error);
+    throw error;
+  }
+};
+
+/**
  * Tạo địa chỉ mới
  * POST /api/addresses
  */

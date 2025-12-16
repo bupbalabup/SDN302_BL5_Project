@@ -8,6 +8,7 @@ import {
   updateReturnRequestStatus,
   getUserOrder,
   cancelOrder,
+  getOrderById,
 } from "../controllers/orderController.js";
 import { authenticateToken } from "../middlewares/authMiddleware.js";
 
@@ -21,6 +22,7 @@ router.put("/returns/:id/status", updateReturnRequestStatus);
 
 router.use(authenticateToken);
 router.post("/", createOrder);
+router.get("/:id", authenticateToken, getOrderById);
 router.get("/:id", authenticateToken, getOrderDetails);
 router.post("/:id/return", createReturnRequest);
 

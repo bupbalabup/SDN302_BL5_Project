@@ -28,14 +28,25 @@ import {
   performanceLogger
 } from "./middleware/loggingMiddleware.js";
 import logger from "./utils/logger.js";
+<<<<<<< HEAD
 import shippingRoutes from "./routes/shippingRoutes.js";
 
 connectDB();
+=======
+>>>>>>> main
 
+connectDB();
+startAutoCancelOrders();
 const hostname = process.env.HOST_NAME || "localhost";
 const port = process.env.PORT || 9999;
 
 const app = express();
+
+// Apply logging middleware first
+app.use(requestLogger);
+app.use(transactionContext);
+app.use(performanceLogger(2000));
+
 app.use(cors());
 app.use(express.json());
 app.use(
@@ -61,6 +72,8 @@ app.use("/api/reviews", reviewRoutes);
 app.use("/api/feedbacks", feedbackRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/bid", bidRoutes);
+app.use("/api/email", emailRoutes);
+app.use("/api/payments", paymentRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).send("Wellcome to eBay BE!");
@@ -73,5 +86,9 @@ app.use("/api/shipping", shippingRoutes);
 app.use(errorLogger);
 
 app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+  logger.info('SERVER', `Server running at http://${hostname}:${port}/`, null, {
+    environment: process.env.NODE_ENV || 'development',
+    port,
+    hostname
+  });
 });
