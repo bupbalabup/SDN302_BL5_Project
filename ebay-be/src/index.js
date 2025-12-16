@@ -18,6 +18,18 @@ import reviewRoutes from "./routes/reviewRoutes.js";
 import feedbackRoutes from "./routes/feedbackRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import bidRoutes from "./routes/BidRoutes.js";
+import emailRoutes from "./routes/emailRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
+import { startAutoCancelOrders } from "./services/autoCancelOrders.js";
+import {
+  requestLogger,
+  errorLogger,
+  transactionContext,
+  performanceLogger
+} from "./middleware/loggingMiddleware.js";
+import logger from "./utils/logger.js";
+import shippingRoutes from "./routes/shippingRoutes.js";
+
 connectDB();
 
 const hostname = process.env.HOST_NAME || "localhost";
@@ -53,6 +65,12 @@ app.use("/api/bid", bidRoutes);
 app.get("/", (req, res) => {
   res.status(200).send("Wellcome to eBay BE!");
 });
+
+// GHN API
+app.use("/api/shipping", shippingRoutes);
+
+// Apply error logging middleware
+app.use(errorLogger);
 
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);

@@ -1,15 +1,19 @@
-import mongoose, { Schema } from "mongoose";
-import User from "./User.js";
+import mongoose from "mongoose";
 
-const addressSchema = mongoose.Schema({
-  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
-  fullname: { type: String, required: true },
-  phone: { type: String, required: true },
-  street: { type: String },
-  city: { type: String },
-  state: { type: String },
-  country: { type: String },
-  isDefault: { type: Boolean, default: false },
-});
+const addressSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
 
-export default mongoose.model("Address", addressSchema, "addresses")
+    provinceId: Number,
+    districtId: Number,
+    wardCode: String,
+
+    addressDetail: String,
+  },
+  { timestamps: true }
+);
+
+export default mongoose.model("Address", addressSchema);
