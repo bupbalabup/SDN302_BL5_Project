@@ -28,12 +28,7 @@ import {
   performanceLogger
 } from "./middleware/loggingMiddleware.js";
 import logger from "./utils/logger.js";
-<<<<<<< HEAD
 import shippingRoutes from "./routes/shippingRoutes.js";
-
-connectDB();
-=======
->>>>>>> main
 
 connectDB();
 startAutoCancelOrders();
