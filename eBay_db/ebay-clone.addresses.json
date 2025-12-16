@@ -1,0 +1,168 @@
+[{
+  "_id": {
+    "$oid": "69403df28e011f266226cccc"
+  },
+  "userId": {
+    "$oid": "68f6560bce81f243332a4723"
+  },
+  "fullname": "Sarah Smith",
+  "phone": "0912345678",
+  "street": "123 Nguyễn Huệ",
+  "city": "Hồ Chí Minh",
+  "state": "HCMC",
+  "country": "Vietnam",
+  "latitude": 10.7769,
+  "longitude": 106.6963,
+  "isDefault": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69403df28e011f266226cccd"
+  },
+  "userId": {
+    "$oid": "68f6560bce81f243332a4724"
+  },
+  "fullname": "Mike Johnson",
+  "phone": "0987654321",
+  "street": "456 Trần Hưng Đạo",
+  "city": "Hà Nội",
+  "state": "Hanoi",
+  "country": "Vietnam",
+  "latitude": 21.0285,
+  "longitude": 105.8542,
+  "isDefault": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69403df28e011f266226ccce"
+  },
+  "userId": {
+    "$oid": "68f6560bce81f243332a4726"
+  },
+  "fullname": "Kevin Store",
+  "phone": "0901234567",
+  "street": "789 Ngô Quyền",
+  "city": "Đà Nẵng",
+  "state": "Danang",
+  "country": "Vietnam",
+  "latitude": 16.0544,
+  "longitude": 108.2022,
+  "isDefault": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69403df28e011f266226cccf"
+  },
+  "userId": {
+    "$oid": "68f6560bce81f243332a4728"
+  },
+  "fullname": "Laptop Zone",
+  "phone": "0938765432",
+  "street": "321 Lê Lợi",
+  "city": "Hồ Chí Minh",
+  "state": "HCMC",
+  "country": "Vietnam",
+  "latitude": 10.7617,
+  "longitude": 106.6832,
+  "isDefault": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69403df28e011f266226ccd0"
+  },
+  "userId": {
+    "$oid": "68f6560bce81f243332a4729"
+  },
+  "fullname": "Green Garden",
+  "phone": "0923456789",
+  "street": "654 Phan Bội Châu",
+  "city": "Hà Nội",
+  "state": "Hanoi",
+  "country": "Vietnam",
+  "latitude": 21.0444,
+  "longitude": 105.8386,
+  "isDefault": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69403df28e011f266226ccd1"
+  },
+  "userId": {
+    "$oid": "68f6560bce81f243332a472b"
+  },
+  "fullname": "Lucas Shop",
+  "phone": "0917654321",
+  "street": "987 Cách Mạng Tháng 8",
+  "city": "Hồ Chí Minh",
+  "state": "HCMC",
+  "country": "Vietnam",
+  "latitude": 10.792,
+  "longitude": 106.7199,
+  "isDefault": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6941053378366ba406ae4662"
+  },
+  "userId": {
+    "$oid": "693bd2d45315d081fe41238c"
+  },
+  "fullname": "Phạm Hiếu",
+  "phone": "0329301262",
+  "street": "Trưng Vương Hospital",
+  "city": "",
+  "state": "",
+  "country": "Vietnam",
+  "latitude": 10.7711,
+  "longitude": 106.6599,
+  "isDefault": false,
+  "province": {
+    "code": "79",
+    "name": "Thành phố Hồ Chí Minh"
+  },
+  "district": {
+    "code": "771",
+    "name": "Quận 10"
+  },
+  "ward": {
+    "code": "27178",
+    "name": "Phường 10"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6941066e78366ba406ae467b"
+  },
+  "userId": {
+    "$oid": "693bd2d45315d081fe41238c"
+  },
+  "fullname": "Phạm Duũng",
+  "phone": "0329301262",
+  "street": "Châu Phong - Liên Hà - Đông Anh - Hà Nội",
+  "city": "",
+  "state": "",
+  "country": "Vietnam",
+  "latitude": 21.1406,
+  "longitude": 105.8467,
+  "isDefault": true,
+  "province": {
+    "code": "1",
+    "name": "Thành phố Hà Nội"
+  },
+  "district": {
+    "code": "17",
+    "name": "Huyện Đông Anh"
+  },
+  "ward": {
+    "code": "484",
+    "name": "Xã Liên Hà"
+  },
+  "__v": 0
+}]
