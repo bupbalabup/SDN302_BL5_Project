@@ -39,10 +39,10 @@ export const createCODPayment = async (req, res) => {
     }
 
     // Kiểm tra trạng thái đơn hàng
-    if (order.status !== 'Processing') {
+    if (order.status !== 'Pending' && order.status !== 'Processing') {
       return res.status(400).json({
         success: false,
-        message: `Chỉ có thể thanh toán đơn hàng ở trạng thái "Processing", hiện tại là "${order.status}"`
+        message: `Chỉ có thể thanh toán đơn hàng ở trạng thái "Pending" hoặc "Processing", hiện tại là "${order.status}"`
       });
     }
 
@@ -121,10 +121,10 @@ export const createPayPalPayment = async (req, res) => {
     }
 
     // Kiểm tra trạng thái đơn hàng
-    if (order.status !== 'Processing') {
+    if (order.status !== 'Pending' && order.status !== 'Processing') {
       return res.status(400).json({
         success: false,
-        message: `Chỉ có thể thanh toán đơn hàng ở trạng thái "Processing"`
+        message: `Chỉ có thể thanh toán đơn hàng ở trạng thái "Pending" hoặc "Processing"`
       });
     }
 
@@ -334,10 +334,10 @@ export const createPayPalOrder = async (req, res) => {
       });
     }
 
-    if (order.status !== 'Processing') {
+    if (order.status !== 'Pending' && order.status !== 'Processing') {
       return res.status(400).json({
         success: false,
-        message: 'Chỉ có thể thanh toán đơn hàng ở trạng thái "Processing"'
+        message: 'Chỉ có thể thanh toán đơn hàng ở trạng thái "Pending" hoặc "Processing"'
       });
     }
 
