@@ -6,7 +6,8 @@ import Address from "../models/Address.js";
 export const getAddresses = async (req, res) => {
   try {
     const userId = req.user.id;
-    const addresses = await Address.find({ userId });
+    const addresses = await Address.find({ userId })
+  .sort({ isDefault: -1, createdAt: -1 });
     return res.status(200).json({ success: true, addresses });
   } catch (error) {
     console.error("Get addresses error:", error);
@@ -25,7 +26,8 @@ export const getAddressesByUser = async (req, res) => {
       return res
         .status(400)
         .json({ success: false, message: "userId required" });
-    const addresses = await Address.find({ userId });
+    const addresses = await Address.find({ userId })
+  .sort({ isDefault: -1, createdAt: -1 });
     return res.status(200).json({ success: true, addresses });
   } catch (error) {
     console.error("Get addresses by user error:", error);
@@ -39,52 +41,53 @@ export const getAddressesByUser = async (req, res) => {
 export const createAddress = async (req, res) => {
   try {
     const userId = req.user.id;
+
     const {
       fullname,
       phone,
-      street,
-      city,
-      state,
+      address,
       country,
       isDefault,
-      latitude,
-      longitude,
-      province,
-      district,
-      ward,
+      provinceId,
+      districtId,
+      wardCode,
     } = req.body;
 
-    // Nếu isDefault = true => đặt tất cả địa chỉ khác của user là false
-    if (isDefault) {
-      await Address.updateMany({ userId }, { isDefault: false });
+    if (!fullname || !phone || !address) {
+      return res.status(400).json({
+        message: "Missing required address fields",
+      });
     }
 
-    const address = await Address.create({
+    if (!provinceId || !districtId || !wardCode) {
+      return res.status(400).json({
+        message: "Missing location fields",
+      });
+    }
+
+    if (isDefault) {
+      await Address.updateMany(
+        { userId },
+        { $set: { isDefault: false } }
+      );
+    }
+
+    const newAddress = await Address.create({
       userId,
       fullname,
       phone,
-      street,
-      city,
-      state,
+      address,
       country,
-      latitude,
-      longitude,
       isDefault: !!isDefault,
-      province:
-        province && province.code
-          ? { code: province.code, name: province.name || "" }
-          : undefined,
-      district:
-        district && district.code
-          ? { code: district.code, name: district.name || "" }
-          : undefined,
-      ward:
-        ward && ward.code
-          ? { code: ward.code, name: ward.name || "" }
-          : undefined,
+      provinceId,
+      districtId,
+      wardCode,
     });
 
-    return res.status(201).json({ success: true, address });
+    return res.status(201).json({
+      success: true,
+      address: newAddress,
+    });
   } catch (error) {
     console.error("Create address error:", error);
     return res.status(500).json({ success: false, message: error.message });
@@ -98,60 +101,40 @@ export const updateAddress = async (req, res) => {
   try {
     const userId = req.user.id;
     const { id } = req.params;
+
     const {
       fullname,
       phone,
-      street,
-      city,
-      state,
+      address: detailAddress,
       country,
       isDefault,
-      latitude,
-      longitude,
-      province,
-      district,
-      ward,
+      provinceId,
+      districtId,
+      wardCode,
     } = req.body;
 
     const address = await Address.findOne({ _id: id, userId });
-    if (!address)
+    if (!address) {
       return res
         .status(404)
         .json({ success: false, message: "Address not found" });
+    }
 
     if (isDefault) {
-      await Address.updateMany({ userId }, { isDefault: false });
+      await Address.updateMany(
+        { userId },
+        { $set: { isDefault: false } }
+      );
       address.isDefault = true;
     }
 
     if (fullname !== undefined) address.fullname = fullname;
     if (phone !== undefined) address.phone = phone;
-    if (street !== undefined) address.street = street;
-    if (city !== undefined) address.city = city;
-    if (state !== undefined) address.state = state;
+    if (detailAddress !== undefined) address.address = detailAddress;
     if (country !== undefined) address.country = country;
-    if (latitude !== undefined) address.latitude = latitude;
-    if (longitude !== undefined) address.longitude = longitude;
-
-    // Update province/district/ward
-    if (province !== undefined) {
-      address.province =
-        province && province.code
-          ? { code: province.code, name: province.name || "" }
-          : undefined;
-    }
-    if (district !== undefined) {
-      address.district =
-        district && district.code
-          ? { code: district.code, name: district.name || "" }
-          : undefined;
-    }
-    if (ward !== undefined) {
-      address.ward =
-        ward && ward.code
-          ? { code: ward.code, name: ward.name || "" }
-          : undefined;
-    }
+    if (provinceId !== undefined) address.provinceId = provinceId;
+    if (districtId !== undefined) address.districtId = districtId;
+    if (wardCode !== undefined) address.wardCode = wardCode;
 
     await address.save();
 

@@ -5,13 +5,25 @@ import ReturnRequest from "../models/ReturnRequest.js";
 import ShippingInfo from "../models/ShippingInfo.js";
 import emailService from "../services/emailService.js";
 import User from "../models/User.js";
+import { createGHNOrder } from "../services/shippingService.js";
 
 /**
  * POST /api/orders
  */
 export const createOrder = async (req, res) => {
-  const buyerId = req.user.id;
-  const { addressId, items, totalPrice } = req.body;
+  console.log("🔥 REQ BODY:", req.body);
+
+  const buyerId = req.user._id || req.user.id;
+
+  const {
+    addressId,
+    items,
+    subtotal,
+    shippingFee,
+    discountAmount = 0,
+    totalPrice,
+    paymentMethod
+  } = req.body;
 
   if (!addressId || !items || items.length === 0 || !totalPrice) {
     return res.status(400).json({
@@ -25,12 +37,43 @@ export const createOrder = async (req, res) => {
       buyerId,
       addressId,
       items,
+      subtotal,
+      shippingFee,
+      discountAmount,
       totalPrice,
+      paymentMethod,
       status: "Pending",
       orderDate: new Date()
     });
 
     const savedOrder = await newOrder.save();
+    // 2️⃣ GỌI GHN TẠO ĐƠN GIAO HÀNG
+    const ghnOrder = await createGHNOrder({
+      order: savedOrder,
+      address,
+      items,
+      serviceId,
+      serviceTypeId,
+      shippingFee,
+    });
+
+    // 3️⃣ LƯU SHIPPING INFO VÀO ORDER
+    savedOrder.shipping = {
+      provider: "GHN",
+
+      orderCode: ghnOrder.order_code,
+
+      serviceId,
+      serviceTypeId,
+
+      status: ghnOrder.status || "ready_to_pick",
+
+      trackingUrl: `https://donhang.ghn.vn/?order_code=${ghnOrder.order_code}`,
+
+      expectedDeliveryTime: ghnOrder.expected_delivery_time || null,
+    };
+
+    await savedOrder.save();
 
     const estimateArrivalDate = new Date();
     // Giả sử 5 ngày giao
@@ -50,11 +93,9 @@ export const createOrder = async (req, res) => {
       targetType: "single",
       userId: buyerId,
       title: "🎉 Order Created Successfully!",
-      message: `Your order #${
-        savedOrder._id
-      } is being processed. Tracking number: ${
-        savedShippingInfo.trackingNumber
-      }. Estimated arrival: ${estimateArrivalDate.toLocaleDateString()}.`,
+      message: `Your order #${savedOrder._id
+        } is being processed. Tracking number: ${savedShippingInfo.trackingNumber
+        }. Estimated arrival: ${estimateArrivalDate.toLocaleDateString()}.`,
       link: `/order/${savedOrder._id}`,
       data: {
         orderId: savedOrder._id,
@@ -74,17 +115,6 @@ export const createOrder = async (req, res) => {
   } catch (error) {
     return handleServerError(res, error);
   }
-};
-
-export const getOrderById = async (req, res) => {
-  const order = await Order.findById(req.params.id)
-    .populate("items.productId");
-
-  if (!order) {
-    return res.status(404).json({ success: false });
-  }
-
-  res.json({ success: true, order });
 };
 
 /**
@@ -152,7 +182,7 @@ export const updateOrderStatus = async (req, res) => {
             trackingNumber: shippingInfo?.trackingNumber,
             estimatedDelivery: shippingInfo?.estimateArrival
           };
-          
+
           await emailService.sendOrderStatusUpdate(user.email, orderData);
           console.log(`Order status update email sent to ${user.email}`);
         }
@@ -417,23 +447,15 @@ export const getOrderDetails = async (req, res) => {
     }
 
     const order = await Order.findById(id)
-      .populate({
-        path: "buyerId",
-        select: "email fullname role",
-      })
-      .populate({
-        path: "addressId",
-        select: "fullname phone street city state country isDefault",
-      })
+      .populate("buyerId", "fullname email")
+      .populate("addressId")
       .populate({
         path: "items.productId",
-        select: "title description price images categoryId sellerId",
         populate: {
           path: "sellerId",
           select: "fullname email",
         },
-      })
-      .lean();
+      });
 
     if (!order) {
       return res.status(404).json({
@@ -557,7 +579,7 @@ export const cancelOrder = async (req, res) => {
           path: 'items.productId',
           select: 'title price'
         });
-        
+
         const cancellationData = {
           orderId: updatedOrder._id,
           totalAmount: updatedOrder.totalPrice,
@@ -568,7 +590,7 @@ export const cancelOrder = async (req, res) => {
             price: item.unitPrice
           }))
         };
-        
+
         await emailService.sendOrderCancellationEmail(user.email, cancellationData);
         console.log(`Order cancellation email sent to ${user.email}`);
       }

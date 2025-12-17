@@ -45,22 +45,19 @@ const orderSchema = new mongoose.Schema(
 
     // 🚚 Vận chuyển (GHN)
     shipping: {
-      provider: {
-        type: String,
-        default: "GHN",
-      },
+      provider: { type: String, default: "GHN" },
 
-      orderCode: {
-        type: String,
-        index: true, // 🔥 để webhook tìm nhanh
-      },
+      orderCode: { type: String, index: true },
 
       serviceId: Number,
+      serviceTypeId: Number,
 
+      trackingUrl: String,
       expectedDeliveryTime: String,
 
       status: {
         type: String,
+        default: "ready_to_pick",
         enum: [
           "ready_to_pick",
           "picking",

@@ -1,10 +1,5 @@
 "use client";
-
-import {
-  calculateShippingUSD,
-  USD_TO_VND_RATE,
-  DEFAULT_ITEM_WEIGHT_KG,
-} from "@/lib/constants";
+import { USD_TO_VND_RATE } from "@/lib/constants";
 import { getAddressesByUser } from "@/services/addressService";
 import React, { useState, useEffect } from "react";
 import cartService from "@/services/cartService";
@@ -17,6 +12,7 @@ import Loading from "@/components/shared/Loading";
 import useModal from "../../../../hooks/useModal";
 import AlertModal from "@/components/shared/AlertModal";
 import FakePayPalModal from "./FakePayPalModal";
+import { previewShippingFee } from "@/services/shippingService";
 
 // IMPORT FAKE PAYPAL MODAL
 
@@ -42,20 +38,28 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
   const [isPayPalModalOpen, setPayPalModalOpen] = useState(false);
   const [currentOrderId, setCurrentOrderId] = useState(null);
 
+  const [shippingPreview, setShippingPreview] = useState({
+    fee: 0,
+    serviceId: null,
+    serviceTypeId: null,
+    loading: false,
+  });
+
+
   // Seller addresses cache (sellerId -> address)
-  const [sellerAddressesMap, setSellerAddressesMap] = useState({});
+  // const [sellerAddressesMap, setSellerAddressesMap] = useState({});
 
   // Modal system
   const { isOpen, modalContent, showModal, hideModal, handleConfirm } =
     useModal();
 
   useEffect(() => {
-  const pendingOrderId = sessionStorage.getItem("pendingOrderId");
+    const pendingOrderId = sessionStorage.getItem("pendingOrderId");
 
-  if (pendingOrderId) {
-    setCurrentOrderId(pendingOrderId);
-  }
-}, []);
+    if (pendingOrderId) {
+      setCurrentOrderId(pendingOrderId);
+    }
+  }, []);
 
 
   // ===== FETCH ADDRESSES =====
@@ -77,6 +81,38 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
     fetchAddresses();
   }, []);
 
+  const fetchShippingPreview = async (addressId) => {
+    if (!addressId) return;
+
+    try {
+      setShippingPreview((s) => ({ ...s, loading: true }));
+
+      const data = await previewShippingFee(addressId);
+
+      setShippingPreview({
+        fee: data.shippingFee,
+        serviceId: data.serviceId,
+        serviceTypeId: data.serviceTypeId,
+        loading: false,
+      });
+    } catch (err) {
+      console.error("Shipping preview error:", err);
+      setShippingPreview((s) => ({ ...s, loading: false }));
+    }
+  };
+
+  useEffect(() => {
+    const addr = addresses.find(a => a._id === selectedAddressId);
+
+    if (
+      !addr ||
+      !addr.districtId ||
+      !addr.wardCode
+    ) return;
+
+    fetchShippingPreview(selectedAddressId);
+  }, [selectedAddressId, addresses]);
+
   useEffect(() => {
     const storedUser = getUserFromStorage(localStorage, sessionStorage);
     setUser(storedUser);
@@ -85,113 +121,14 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
   // ===== PRICE CALCULATION =====
   const baseSubtotalUSD = parseFloat(cart.subtotal) || 0;
   const baseDiscountUSD = parseFloat(cart.discountTotal) || 0;
-
-  // Tạm thời: nếu item không có weightKg từ DB,
-  // dùng DEFAULT_ITEM_WEIGHT_KG cho mỗi sản phẩm.
-  const getItemWeightKg = (item) => item.weightKg ?? DEFAULT_ITEM_WEIGHT_KG;
-
-  const totalWeightKg = cartItems.reduce(
-    (sum, group) =>
-      sum +
-      (group.products || []).reduce(
-        (s, it) => s + getItemWeightKg(it) * (it.quantity ?? 1),
-        0
-      ),
-    0
-  );
-
-  const addrForShipping = addresses.find(
-    (addr) => addr._id === selectedAddressId
-  );
-
-  useEffect(() => {
-    const fetchSellerAddresses = async () => {
-      try {
-        const sellerIds = Array.from(
-          new Set((cartItems || []).map((g) => g.seller?._id).filter(Boolean))
-        );
-
-        const map = {};
-        await Promise.all(
-          sellerIds.map(async (sid) => {
-            try {
-              const addrs = await getAddressesByUser(sid);
-              // pick default or first
-              const chosen =
-                (addrs || []).find((a) => a.isDefault) || addrs?.[0] || null;
-              map[sid] = chosen;
-            } catch (e) {
-              console.warn("Failed to fetch seller addresses for", sid, e);
-            }
-          })
-        );
-
-        setSellerAddressesMap(map);
-      } catch (error) {
-        console.error("Error fetching seller addresses:", error);
-      }
-    };
-
-    if (cartItems.length > 0) {
-      fetchSellerAddresses();
-    } else {
-      setSellerAddressesMap({});
-    }
-  }, [cartItems]);
+  const shippingUSD =
+    shippingPreview.fee > 0
+      ? shippingPreview.fee / 26300
+      : 0;
 
   if (!user) {
     return <Loading />;
   }
-
-  // Calculate distance between two lat/lon points (Haversine formula)
-  const haversineKm = (lat1, lon1, lat2, lon2) => {
-    if ([lat1, lon1, lat2, lon2].some((v) => v === undefined || v === null))
-      return 0;
-    const toRad = (deg) => (deg * Math.PI) / 180;
-    const R = 6371; // km
-    const dLat = toRad(lat2 - lat1);
-    const dLon = toRad(lon2 - lon1);
-    const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(toRad(lat1)) *
-        Math.cos(toRad(lat2)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
-  };
-
-  // Compute shipping per seller (sum)
-  const shippingUSD = (() => {
-    if (!addrForShipping)
-      return calculateShippingUSD(0, { weightKg: totalWeightKg });
-
-    const buyerLat = addrForShipping.latitude;
-    const buyerLon = addrForShipping.longitude;
-
-    let total = 0;
-    for (const group of cartItems) {
-      const sid = group.seller?._id;
-      const sellerAddr = sellerAddressesMap[sid];
-
-      const sellerLat = sellerAddr?.latitude;
-      const sellerLon = sellerAddr?.longitude;
-
-      const groupWeight = (group.products || []).reduce(
-        (s, it) => s + getItemWeightKg(it) * (it.quantity ?? 1),
-        0
-      );
-
-      const distKm =
-        sellerLat && sellerLon && buyerLat && buyerLon
-          ? haversineKm(sellerLat, sellerLon, buyerLat, buyerLon)
-          : addrForShipping?.distanceKm ?? addrForShipping?.distance ?? 0;
-
-      total += calculateShippingUSD(distKm, { weightKg: groupWeight });
-    }
-
-    return Math.round(total * 100) / 100;
-  })();
 
   const currentSubtotalUSD = appliedCouponData
     ? appliedCouponData.cartTotal
@@ -298,11 +235,14 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
     return {
       buyerId: user.id,
       addressId: selectedAddressId,
+
       items: orderItems,
-      totalPrice: parseFloat(currentTotalUSD.toFixed(2)),
-      couponCodeApplied: appliedCouponData ? cart.couponCode : null,
-      shippingCost: shippingUSD,
-      discountAmount: parseFloat(currentDiscountUSD.toFixed(2)),
+
+      subtotal: Number(currentSubtotalUSD.toFixed(2)),     // ✅ BẮT BUỘC
+      shippingFee: Number(shippingUSD.toFixed(2)),         // ✅ BẮT BUỘC
+      discountAmount: Number(currentDiscountUSD.toFixed(2)),
+      totalPrice: Number(currentTotalUSD.toFixed(2)),
+
       paymentMethod,
     };
   };
@@ -320,7 +260,7 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
         orderStatus: "PENDING",
       };
 
-      const res = await orderService.createOrder(payload);
+      const data = await orderService.createOrder(payload);
       await cartService.clearCart();
 
       showModal({
@@ -328,7 +268,7 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
         message: "Your COD order has been created successfully!",
         type: "success",
         onConfirm: () => {
-          router.push(`/order/${res.order?._id}`);
+          router.push(`/order/${data.order?._id}`);
         },
       });
     } catch (err) {
@@ -399,6 +339,15 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
       return false;
     }
 
+    if (shippingPreview.loading || shippingPreview.fee <= 0) {
+      showModal({
+        title: "Shipping not ready",
+        message: "Shipping fee is not calculated yet. Please wait.",
+        type: "warning",
+      });
+      return false;
+    }
+
     return true;
   };
 
@@ -411,9 +360,9 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
 
     if (paymentMethod === "PAYPAL") {
       if (currentOrderId) {
-    setPayPalModalOpen(true);
-    return;
-  }
+        setPayPalModalOpen(true);
+        return;
+      }
       // Tạo order trước
       setIsProcessing(true);
       try {
@@ -424,9 +373,11 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
           orderStatus: "PENDING",
         };
 
-        const res = await orderService.createOrder(payload);
+        console.log("🚨 FINAL ORDER PAYLOAD:", payload);
+        const data = await orderService.createOrder(payload);
+        console.log("🚀 CREATE ORDER PAYLOAD:", JSON.stringify(payload, null, 2));
 
-        const orderId = res.order?._id;
+        const orderId = data.order?._id;
 
         sessionStorage.setItem("pendingOrderId", orderId);
 
@@ -439,6 +390,21 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
           title: "Order Creation Failed",
           message: "Could not create order. Please try again.",
           type: "error",
+        });
+        console.group("🔥 ORDER ERROR");
+        console.log("Error:", err);
+        console.log("Message:", err.message);
+        console.log("Response:", err.response);
+        console.log("Data:", err.response?.data);
+        console.log("Status:", err.response?.status);
+        console.groupEnd();
+
+        showModal({
+          title: "Order Creation Failed",
+          message:
+            err.response?.data?.message ||
+            err.message ||
+            "Could not create order.",
         });
       } finally {
         setIsProcessing(false);
@@ -680,7 +646,11 @@ const Checkout = ({ cart = {}, coupons = [], onCartUpdate }) => {
 
                 <div className="flex justify-between">
                   <span>Shipping</span>
-                  <span>US ${shippingUSD.toFixed(2)}</span>
+                  <span>
+                    {shippingPreview.loading
+                      ? "Calculating..."
+                      : `US $${shippingUSD.toFixed(2)}`}
+                  </span>
                 </div>
 
                 <div className="flex justify-between text-green-600">

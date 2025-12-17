@@ -1,27 +1,65 @@
 import express from "express";
-import { ghnWebhook, getMyOrderHistory, getShippingServices, calculateShippingFeeController } from "../controllers/shippingController.js";
+import {
+  ghnWebhook,
+  getMyOrderHistory,
+  getShippingServices,
+  calculateShippingFeeController,
+
+  // 🔥 GHN master data
+  getGHNProvinces,
+  getGHNDistricts,
+  getGHNWards,
+
+  // 🔥 Checkout preview
+  checkoutPreview,
+} from "../controllers/shippingController.js";
 
 const router = express.Router();
 
 /**
- * GHN webhook
+ * =======================
+ * GHN WEBHOOK
+ * =======================
  */
 router.post("/webhook", ghnWebhook);
 
 /**
- * Buyer xem order history + tracking link
+ * =======================
+ * BUYER ORDER HISTORY
+ * =======================
  */
 router.get("/history", getMyOrderHistory);
 
 /**
- * Lấy danh sách service GHN
- * FE gọi trước khi tính ship
+ * =======================
+ * GHN MASTER DATA (FE xài)
+ * =======================
+ */
+router.get("/ghn/provinces", getGHNProvinces);
+router.get("/ghn/districts/:provinceId", getGHNDistricts);
+router.get("/ghn/wards/:districtId", getGHNWards);
+
+/**
+ * =======================
+ * GHN SERVICES
+ * =======================
  */
 router.get("/services", getShippingServices);
 
 /**
- * Tính phí ship (đã chọn service)
+ * =======================
+ * CALCULATE SHIPPING FEE
+ * (user chọn service)
+ * =======================
  */
 router.post("/fee", calculateShippingFeeController);
+
+/**
+ * =======================
+ * CHECKOUT PREVIEW
+ * (auto chọn service)
+ * =======================
+ */
+router.post("/checkout-preview", checkoutPreview);
 
 export default router;

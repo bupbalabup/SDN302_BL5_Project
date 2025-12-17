@@ -52,31 +52,35 @@ export const calculateShippingFee = async ({
 };
 
 export const previewShippingFee = async ({
-  toDistrictId,
-  toWardCode,
-}) => {
-  const services = await getAvailableServices(toDistrictId);
-
-  if (!services || services.length === 0) {
-    throw new Error("No GHN services available");
-  }
-
-  // 🔥 auto chọn service rẻ nhất
-  const service = services[0];
-
-  const fee = await calculateFee({
     toDistrictId,
     toWardCode,
-    weight: 500,
-    serviceId: service.service_id,
-    serviceTypeId: service.service_type_id,
-  });
+}) => {
+    const services = await getAvailableServices(toDistrictId);
 
-  return {
-    fee,
-    serviceId: service.service_id,
-    serviceTypeId: service.service_type_id,
-  };
+    if (!services || services.length === 0) {
+        throw new Error("No GHN services available");
+    }
+
+    // 🔥 auto chọn service rẻ nhất
+    const service = services[0];
+
+    const fee = await calculateShippingFee({
+        toDistrictId,
+        toWardCode,
+        weight: 500,
+        serviceId: service.service_id,
+        serviceTypeId: service.service_type_id,
+    });
+
+    console.log("SERVICE CHOSEN:", service);
+    console.log("GHN FEE RAW:", fee);
+
+
+    return {
+        fee,
+        serviceId: service.service_id,
+        serviceTypeId: service.service_type_id,
+    };
 };
 
 /**
@@ -148,4 +152,59 @@ export const getOrderHistoryWithTracking = async (buyerId) => {
                 ? `https://donhang.ghn.vn/?order_code=${o.shipping.orderCode}`
                 : null,
     }));
+};
+
+export const createGHNOrder = async ({
+    order,
+    address,
+    items,
+    serviceId,
+    serviceTypeId,
+    shippingFee,
+}) => {
+    const payload = {
+        payment_type_id: 1, // shop trả ship
+        note: "Đơn hàng từ hệ thống",
+        required_note: "KHONGCHOXEMHANG",
+
+        from_name: "SHOP NAME",
+        from_phone: "0123456789",
+        from_address: "Shop address",
+        from_ward_name: "Ward",
+        from_district_name: "District",
+        from_province_name: "HCM",
+
+        to_name: address.fullname,
+        to_phone: address.phone,
+        to_address: address.street,
+        to_ward_code: address.wardCode,
+        to_district_id: address.districtId,
+
+        cod_amount: order.paymentMethod === "COD"
+            ? order.totalPrice
+            : 0,
+
+        service_id: serviceId,
+        service_type_id: serviceTypeId,
+
+        weight: 500,
+        length: 20,
+        width: 20,
+        height: 10,
+
+        items: items.map(i => ({
+            name: i.productName,
+            quantity: i.quantity,
+            weight: 500,
+        })),
+    };
+
+    console.log("📦 GHN CREATE ORDER PAYLOAD:", payload);
+
+    const res = await ghnAxios.post(
+        "/v2/shipping-order/create",
+        payload
+    );
+
+    return res.data.data;
 };
